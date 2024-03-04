@@ -1,11 +1,10 @@
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify
 from flask_pymongo import PyMongo
 import firebase_admin
 from firebase_admin import credentials, firestore as admin_firestore
 import os
-from bson.json_util import dumps
-from testsAI.ai_profiling import run_ai_profiling
-import pandas as pd
+from testsAI.rfm_analysis import perform_rfm_analysis_and_update_mongodb
+from testsAI.training_random_forest import fetch_data_from_mongodb, train_random_forest_model
 
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
@@ -43,46 +42,21 @@ def mongo_test():
     # Convert the document to a JSON response
     return jsonify(some_document) if some_document else "No document found"
 
-@app.route('/ai_profiling', methods=['GET'])
-def ai_profiling_route():
-    page = int(request.args.get('page', 1))
-    pageSize = int(request.args.get('pageSize', 1000))
-    offset = (page - 1) * pageSize
-    
-    # Fetch paginated data from MongoDB
-    cursor = mongo_db['capstone'].find().skip(offset).limit(pageSize)
-    tourism_data = list(cursor)
-    
-    # Convert ObjectId to string for JSON serialization
-    for doc in tourism_data:
-        doc['_id'] = str(doc['_id'])
-    
-    # Convert the list of dictionaries to a DataFrame
-    df = pd.DataFrame(tourism_data)
-    
-    # Assuming run_ai_profiling accepts a DataFrame and returns a dictionary
-    # You might need to adjust arguments based on your actual function definition
-    profiling_results = run_ai_profiling(df, 'Combined_Date', 'Num_of_Visits', 'Total_Spendings')
-    
-    # Prepare and return the response
-    response = {
-        'profilingResults': profiling_results,
-        'page': page,
-        'pageSize': pageSize
-    }
-    return jsonify(response)
+
+@app.route('/perform_rfm_analysis')
+def perform_rfm_analysis_route():
+    # Call the function to perform RFM analysis and update MongoDB
+    perform_rfm_analysis_and_update_mongodb()
+
+    # You can return a response if needed
+    return 'RFM analysis completed and MongoDB updated.'
 
 
-# # Route to save data to Firestore
-# @app.route('/save-data')
-# def save_data():
-#     data = {
-#         'name': 'John Doe',
-#         'email': 'john@example.com'
-#     }
-#     # Add a new document with a generated ID to Firestore 'users' collection
-#     firebase_db.collection('users').add(data)
-#     return 'Data saved successfully'
+@app.route('/train_randomforest')
+def training():
+    df = fetch_data_from_mongodb()
+    train_random_forest_model(df)
+    return "Model training initiated. Check server logs for completion status."
 
 
 if __name__ == '__main__':
