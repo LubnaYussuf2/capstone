@@ -5,6 +5,9 @@ from firebase_admin import credentials, firestore as admin_firestore
 import os
 from testsAI.rfm_analysis import perform_rfm_analysis_and_update_mongodb
 from testsAI.training_random_forest import fetch_data_from_mongodb, train_random_forest_model
+from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
+from testsAI.rem_clusters import remove_cluster_from_percentage_of_data
+from testsAI.predict_clusters import fill_empty_clusters
 
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
@@ -57,6 +60,25 @@ def training():
     df = fetch_data_from_mongodb()
     train_random_forest_model(df)
     return "Model training initiated. Check server logs for completion status."
+
+
+@app.route('/targeted_marketing')
+def targeted_marketing():
+    perform_targetted_marketing_and_update_mongodb()
+
+    return jsonify({'message': 'Recommended package added successfully'})
+
+
+@app.route('/clear_cluster')
+def clear_cluster():
+    remove_cluster_from_percentage_of_data(0.3)
+    return jsonify({'message': 'Clusters removed successfully'})
+
+
+@app.route('/fill_empty_clusters')
+def fill_empty_clusters_route():
+    fill_empty_clusters()
+    return jsonify({'message': 'Empty clusters filled successfully'})
 
 
 if __name__ == '__main__':
