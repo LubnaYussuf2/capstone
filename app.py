@@ -8,6 +8,8 @@ from testsAI.training_random_forest import fetch_data_from_mongodb, train_random
 from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
 from testsAI.rem_clusters import remove_cluster_from_percentage_of_data
 from testsAI.predict_clusters import fill_empty_clusters
+from flask import Flask, render_template
+from testsAI import cs_test  
 
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
@@ -79,6 +81,19 @@ def clear_cluster():
 def fill_empty_clusters_route():
     fill_empty_clusters()
     return jsonify({'message': 'Empty clusters filled successfully'})
+
+
+@app.route('/cs-test')
+def cs_test_route():
+    df, html_plot, count_table = cs_test.analyze_sentiment()
+
+    # Calculate satisfaction percentage as before
+    total_sentiments = count_table['Count'].sum()
+    positive_sentiments = count_table[count_table['Sentiment'].isin(['Positive', 'Very Positive'])]['Count'].sum()
+    satisfaction_percentage = (positive_sentiments / total_sentiments) * 100 if total_sentiments > 0 else 0
+
+    # Render the template with the analysis results passed as context
+    return render_template('cs_test_output.html', count_table=count_table, html_plot=html_plot, satisfaction_percentage=satisfaction_percentage)
 
 
 if __name__ == '__main__':
