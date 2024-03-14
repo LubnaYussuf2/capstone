@@ -1,37 +1,16 @@
 import React, { useState, useEffect } from 'react';
+import CustomerScreen from './components/Customer';
 
 function App() {
-
-  const [data, setData] = useState(null)
-
-  useEffect(() => {
-    fetch("http://127.0.0.1:5000/members").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    ).catch(
-      error => console.error("Error fetching data:", error)); // Add a catch block to handle errors
-
-  }, [])
-
   return (
     <div>
-      {data ? (
-        <ul>
-          {data.members.map((member, index) => (
-            <li key={index}>{member}</li>
-          ))}
-        </ul>
-      ) : (
-        <p>Loading...</p>
-      )}    </div>
-  )
+      <CustomerScreen />
+    </div>
+  );
 }
 
-export default App
+export default App;
+
 
 // function App() {
 //   // Define state variables to hold data
