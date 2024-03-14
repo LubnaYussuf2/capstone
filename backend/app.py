@@ -12,6 +12,12 @@ from flask import Flask, render_template
 from testsAI import cs_test  
 
 from flask_cors import CORS
+from pymongo import MongoClient
+import csv
+
+from controller.customer import get_mongodata
+
+
 
 
 # Set environment variable for Google credentials
@@ -35,21 +41,51 @@ mongo = PyMongo(app)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
 
+# Connect to MongoDB
+client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+db = client['capstone']
+collection = db['capstone']
+
+
+@app.route('/api/mongodata')
+def api_mongodata():
+    return get_mongodata()
+    # data = []
+    # cursor = collection.find({})
+    # for document in cursor:
+    #     data.append(document)
+
+    # # response_data = {"customers" : data}
+    # # print(data)
+
+    # customers = []
+    # for i in data:
+    #     # Access values using dictionary keys
+    #     customer = {"name": i.get("name"), "age": i.get("Age"), "gender": i.get("gender")}
+    #     customers.append(customer)
+
+    # print(customers)
+
+    # if customers:
+    #     return jsonify({'customers': customers})
+    # else:
+        # return "no data"
+
+
+
 @app.route('/')
 def hello():
     return 'Hello, World!'
 
-# @app.route('/mongoAll')
-# def mongo_testt():
-#     # Example: Find all documents in the 'capstone' collection
-#     all_documents = list(mongo_db.capstone.find())
 
-#     # Convert ObjectId to string for JSON serialization
-#     for document in all_documents:
-#         document['_id'] = str(document.get('_id'))
-
-#     # Convert the documents to a JSON response
-#     return jsonify(all_documents)
+@app.route('/api/csvdata')
+def get_csvdata():
+    data = []
+    with open('testsAI/tourism_df.csv', newline='') as csvfile: 
+        csvreader = csv.DictReader(csvfile)
+        for row in csvreader:
+            data.append(row)
+    return jsonify(data)
 
 
 @app.route("/members")
@@ -59,7 +95,7 @@ def members():
     return jsonify(response_data)
 
 
-# THEIRS
+
 @app.route('/mongo')
 def mongo_test():
     # Example: Find one document in the 'capstone' collection
