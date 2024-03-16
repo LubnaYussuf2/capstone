@@ -5,9 +5,11 @@ def get_mongodata():
     customers = get_customer_data()
 
     customerData = []
+    counter = 1
 
     for i in customers:
-        customer = {"name": i.get("name"), 
+        customer = {"id": counter,
+                    "name": i.get("name"), 
                     "age": i.get("Age"), 
                     "gender": i.get("gender"), 
                     "email": i.get("email"), 
@@ -17,8 +19,10 @@ def get_mongodata():
                     "visits": i.get("Num_of_Visits")
                     }
         customerData.append(customer)
+        counter = counter + 1
 
     if customers:
-        return jsonify({'customers': customerData})
+        # return jsonify({'customers': customerData})
+        return jsonify( customerData)
     else:
         return "no data"
