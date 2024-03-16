@@ -5,18 +5,21 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from flask_pymongo import PyMongo
 
 app = Flask(__name__)
 
+
 def analyze_sentiment():
     # Connect to MongoDB
-    client = MongoClient('localhost', 27017)
-    db = client['Capstone']  
-    collection = db['Capstone'] 
-
+    # Configure Flask app for MongoDB
+    app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+    mongo = PyMongo(app)
+    # print(mongo.db)
+    db = mongo.db  # This is the MongoDB database instance  
     # Fetch data from MongoDB
     data = []
-    for doc in collection.find():
+    for doc in db.capstone.find():
         text = doc.get('Review')
         if text:
             data.append(text)  # Assuming 'Rating_Words' is the field containing the text data
