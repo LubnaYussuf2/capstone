@@ -2,3 +2,4 @@
 venv/
 controller/__pycache__/
 model/__pycache__/
+testsAI/__pycache__/
