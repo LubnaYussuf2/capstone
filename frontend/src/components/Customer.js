@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import '../components/customer.css';
+// import '../components/customer.css';
 import { DataGrid } from '@mui/x-data-grid';
+import Chip from '@mui/material/Chip';
+import Avatar from '@mui/material/Avatar';
+
+
 
 
 const columns = [
-    // { field: 'profile', headerName: 'Profile', width: 70 },
-    {field: 'id', headerName: 'ID', width: 50 },
+    { 
+        // field: 'profile', 
+        headerName: 'Profile', 
+        width: 70, 
+        renderCell: (params) => (
+            <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getRandomColor() }}>
+                {getInitials(params.row.name)}
+            </Avatar>
+        ) 
+    },    {field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'age', headerName: 'Age', width: 50 },
     { field: 'gender', headerName: 'Gender', width: 100 },
     { field: 'origin', headerName: 'Origin', width: 100 },
     { field: 'email', headerName: 'E-Mail', width: 150 },
     { field: 'phoneno', headerName: 'Phone Number', width: 130 },
-    // { field: 'status', headerName: 'Status', width: 100 },
+    { field: 'visits', headerName: 'Status', width: 100, 
+        renderCell: (params) => (
+            <Chip
+                label={params.row.visits > 5 ? "Inactive" : "Active"}
+                color={params.row.visits > 5 ? "secondary" : "primary"}
+                variant="outlined"
+                size="small"
+            />
+        )
+    }
     
     // {
     //     field: 'fullName',
@@ -24,6 +45,21 @@ const columns = [
     //         `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     // },
 ];
+
+const getRandomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+};
+
+// Function to get initials from name
+const getInitials = (name) => {
+    const nameArray = name.split(' ');
+    return nameArray.map((word) => word.charAt(0)).join('');
+};
 
 
 
@@ -64,32 +100,16 @@ const Customer = () => {
 
 
     return (
-        <div className="App">
-            <div className="sidebar">
-                <h2>CRM Menu</h2>
-                <ul className="nav">
-                    <li><a href="#"><i className="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                    <li><a href="#"><i className="fas fa-user-friends"></i> Leads</a></li>
-                    <li><a href="#"><i className="fas fa-bullhorn"></i> Campaigns</a></li>
-                    <li><a href="#"><i className="fas fa-calendar-alt"></i> Bookings</a></li>
-                    <li><a href="#"><i className="fas fa-users"></i> Customers</a></li>
-                </ul>
-            </div>
-            <div className="container">
-                <div className="header">
-                    <h1>Customers</h1>
-                    <button className="add-customer-btn"><i className="fas fa-plus"></i> Add Customer</button>
-                </div>
-                <div className="customer-list">
-                    <h2>Customer List</h2>
+        <div className="customer-list">
                     <div className="customer-list-content">
                     {customerData ? (
-                            <div style={{ height: 400, width: '100%' }}>
+                            <div style={{ height: 400, width: '100%', margin: 15}}>
                                 <DataGrid
                                     rows={customerData}
                                     columns={columns}
                                     pageSizeOptions={[5, 10]}
-                                    checkboxSelection
+                                    stickyHeader
+                                    // checkboxSelection
                                     onRowClick={(row) => handleViewCustomer(row.id)}
                                 />
                             </div>
@@ -98,12 +118,7 @@ const Customer = () => {
                         )}
                     </div>
                 </div>
-            </div>
-        </div>
     );
 }
 
 export default Customer
-
-
-
