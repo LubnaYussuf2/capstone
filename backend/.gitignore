@@ -1,2 +1,4 @@
 # Ignore venv directory
 venv/
+controller/__pycache__/
+model/__pycache__/

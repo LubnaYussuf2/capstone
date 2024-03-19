@@ -15,7 +15,12 @@ from flask_cors import CORS
 from pymongo import MongoClient
 import csv
 
-from controller.customer import get_mongodata
+# functions
+from controller.customer import get_all_customers
+from controller.customer import get_one_customer
+
+from controller.sales import get_sales
+
 
 
 
@@ -47,35 +52,35 @@ db = client['capstone']
 collection = db['capstone']
 
 
-@app.route('/api/mongodata')
-def api_mongodata():
-    return get_mongodata()
-    # data = []
-    # cursor = collection.find({})
-    # for document in cursor:
-    #     data.append(document)
-
-    # # response_data = {"customers" : data}
-    # # print(data)
-
-    # customers = []
-    # for i in data:
-    #     # Access values using dictionary keys
-    #     customer = {"name": i.get("name"), "age": i.get("Age"), "gender": i.get("gender")}
-    #     customers.append(customer)
-
-    # print(customers)
-
-    # if customers:
-    #     return jsonify({'customers': customers})
-    # else:
-        # return "no data"
-
-
 
 @app.route('/')
 def hello():
     return 'Hello, World!'
+
+
+#Customers screen
+@app.route('/customers')
+def customers_data():
+    return get_all_customers()
+
+
+#Customer profile screen
+@app.route('/customers/<customer_id>')
+def get_customer_data(customer_id):
+    return get_one_customer(customer_id)
+
+
+# Sales Screen
+@app.route('/sales')
+def sales_data():
+    # s=get_sales()
+    # print(s)
+    return get_sales()
+
+
+
+
+
 
 
 @app.route('/api/csvdata')

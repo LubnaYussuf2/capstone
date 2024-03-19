@@ -5,9 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const columns = [
     // { field: 'profile', headerName: 'Profile', width: 70 },
-    {field: 'id',
-        headerName: 'ID',
-        width: 50 },
+    {field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'age', headerName: 'Age', width: 50 },
     { field: 'gender', headerName: 'Gender', width: 100 },
@@ -27,26 +25,13 @@ const columns = [
     // },
 ];
 
-// const rows = [
-//     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },
-//     { id: 2, lastName: 'Lannister', firstName: 'Cersei', age: 42 },
-//     { id: 3, lastName: 'Lannister', firstName: 'Jaime', age: 45 },
-//     { id: 4, lastName: 'Stark', firstName: 'Arya', age: 16 },
-//     { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', age: null },
-//     { id: 6, lastName: 'Melisandre', firstName: null, age: 150 },
-//     { id: 7, lastName: 'Clifford', firstName: 'Ferrara', age: 44 },
-//     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
-//     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
-// ];
-
 
 
 const Customer = () => {
     const [customerData, setCustomerData] = useState(null)
-    const [counter, setCounter] = useState(1)
 
     useEffect(() => {
-        fetch("http://127.0.0.1:5000/api/mongodata")
+        fetch("http://127.0.0.1:5000/customers")
             .then(result => result.json())
             .then(data => {
                 if (data && data) {
@@ -64,6 +49,18 @@ const Customer = () => {
             })
             .catch(error => console.error("Error fetching data:", error));
     }, []);
+
+
+    const handleViewCustomer = (customerId) => {
+        fetch(`http://127.0.0.1:5000/customers/${customerId}`)
+            .then(result => result.json())
+            .then(data => {
+                // Handle the response data
+                console.log(data);
+                console.log("i worked")
+            })
+            .catch(error => console.error("Error fetching customer data:", error));
+    };
 
 
     return (
@@ -86,20 +83,16 @@ const Customer = () => {
                 <div className="customer-list">
                     <h2>Customer List</h2>
                     <div className="customer-list-content">
-                        {customerData ? (
-                        <div style={{ height: 400, width: '100%' }}>
-                            <DataGrid
-                                rows={customerData}
-                                columns={columns}
-                                initialState={{
-                                    pagination: {
-                                        paginationModel: { page: 0, pageSize: 5 },
-                                    },
-                                }}
-                                pageSizeOptions={[5, 10]}
-                                checkboxSelection
-                            />
-                        </div>
+                    {customerData ? (
+                            <div style={{ height: 400, width: '100%' }}>
+                                <DataGrid
+                                    rows={customerData}
+                                    columns={columns}
+                                    pageSizeOptions={[5, 10]}
+                                    checkboxSelection
+                                    onRowClick={(row) => handleViewCustomer(row.id)}
+                                />
+                            </div>
                         ) : (
                             <p>Loading...</p>
                         )}
@@ -108,23 +101,6 @@ const Customer = () => {
             </div>
         </div>
     );
-
-
-    //   return (
-    //     <div>
-    //       {customerData ? (
-    //         <ul>
-    //           {customerData.map((customer, index) => (
-    //             <li key={index}>
-    //               Customer {index + 1}: <b>Name - </b>{customer.name}, <b>Age -</b> {customer.age}, <b>Gender - </b>{customer.gender}, <b>E-mail - </b>{customer.email}, <b>Phone Number - </b>{customer.phoneno}, <b>Origin - </b>{customer.origin}, <b>Frequency - </b>{customer.frequency}, <b>visits - </b>{customer.visits}
-    //             </li>
-    //           ))}
-    //         </ul>
-    //       ) : (
-    //         <p>Loading...</p>
-    //       )}
-    //     </div>
-    //   )
 }
 
 export default Customer
