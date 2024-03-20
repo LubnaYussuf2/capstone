@@ -1,12 +1,47 @@
 import React, { useState, useEffect } from 'react';
-import CustomerScreen from './components/Customer';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
+import Nav from './components/Routes/Nav';
+import Home from './components/Home';
+import Customers from './components/Customers';
+import Sales from './components/Sales';
+import Packages from './components/Packages';
+import Campaigns from './components/Campaigns';
+import Profile from './components/Profile';
+import Register from './components/Auth/Register';
+import Login from './components/Auth/Login';
 
 function App() {
   return (
-    <div>
-      <CustomerScreen />
-    </div>
+    // <div>
+    //   <CustomerScreen />
+    // </div>
+    <Router>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/*" element={<ProtectedRoutes />} />
+      </Routes>
+    </Router>
   );
+}
+
+const ProtectedRoutes = () => {
+  return (
+    <div style={{ display: 'flex' }}>
+      <Nav />
+      <div style={{ flex: 1, padding: '20px' }}>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/customers" element={<Customers />} />
+          <Route path="/sales" element={<Sales />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/profile" element={<Profile />} />
+        </Routes>
+      </div>
+    </div>
+ )
 }
 
 export default App;
