@@ -1,44 +1,26 @@
-from flask import Flask
-from pymongo import MongoClient
 import pandas as pd
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
+from flask import Flask
 from flask_pymongo import PyMongo
+import matplotlib
+matplotlib.use('Agg')  # Use a non-GUI backend
+
+
 
 app = Flask(__name__)
 
 
 def analyze_sentiment():
-    # Connect to MongoDB
     # Configure Flask app for MongoDB
     app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
     mongo = PyMongo(app)
-    # print(mongo.db)
     db = mongo.db  # This is the MongoDB database instance  
-    # Fetch data from MongoDB
-    data = []
-    for doc in db.capstone.find():
-        text = doc.get('Review')
-        if text:
-            data.append(text)  # Assuming 'Rating_Words' is the field containing the text data
+    collection = db.review
 
-    if not data:
-        # Handle case where no data is retrieved
-        return pd.DataFrame(), ''
-
-    # Perform sentiment analysis
-    sid = SentimentIntensityAnalyzer()
-    sentiment_scores = []
-    for text in data:
-        try:
-            score = sid.polarity_scores(text)['compound']
-            sentiment_scores.append(score)
-        except Exception as e:
-            print(f"Error analyzing sentiment for text '{text}': {e}")
-
-    # Classify sentiments
+    # Define the classify_sentiment function
     def classify_sentiment(score):
         if score >= 0.8:
             return 'Very Positive'
@@ -51,7 +33,42 @@ def analyze_sentiment():
         else:
             return 'Very Negative'
 
+    # Fetch data from MongoDB and store it in a list
+    cursor = collection.find()
+    documents = list(cursor)
+
+    # Extract text data from documents
+    data = [doc.get('Review') for doc in documents if doc.get('Review')]
+    sentiment_scores = []
+
+    # Perform sentiment analysis for each text
+    try:
+        sid = SentimentIntensityAnalyzer()
+        sentiment_scores = [sid.polarity_scores(text)['compound'] for text in data]
+    except Exception as e:
+        print(f"Error analyzing sentiment: {e}")
+
+    if not data:
+        # Handle case where no data is retrieved
+        print("No data found in the MongoDB collection.")
+        return pd.DataFrame(), '', pd.DataFrame()
+
+    print("Length of data:", len(data))
+    print("Length of sentiment_scores:", len(sentiment_scores))
+
+    # Create sentiments after sentiment_scores is populated
     sentiments = [classify_sentiment(score) for score in sentiment_scores]
+
+    # Update MongoDB documents with sentiment scores and classifications
+    for doc, score, sentiment in zip(documents, sentiment_scores, sentiments):
+        try:
+            collection.update_one(
+                {'_id': doc['_id']},
+                {'$set': {'sentiment_score': score, 'sentiment_classification': sentiment}}
+            )
+        except Exception as e:
+            print(f"Error updating document with sentiment score: {e}")
+            print(f"Document that caused the error: {doc}")
 
     # Create DataFrame
     df = pd.DataFrame({'Rating_Words': data, 'SentimentScore': sentiment_scores, 'Sentiment': sentiments})
@@ -64,7 +81,7 @@ def analyze_sentiment():
     plt.ylabel('Count', fontsize=14)
     plt.xticks(fontsize=12)
     plt.yticks(fontsize=12)
-    plt.tight_layout()  
+    plt.tight_layout()
 
     # Convert the plot to base64 encoded string with error handling
     try:
@@ -83,6 +100,7 @@ def analyze_sentiment():
     count_table.columns = ['Sentiment', 'Count']
 
     return df, html_plot, count_table
+
 
 @app.route('/')
 def index():
@@ -165,7 +183,3 @@ def index():
     """
 
     return html_response
-
-#if __name__ == '__main__':
-    #app.run(debug=True)
-
