@@ -42,7 +42,7 @@ function Customers() {
       </AppBar>
       
 
-      <h2>Customer List</h2>
+      
       <Customer />
 
     </div>

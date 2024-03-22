@@ -24,14 +24,14 @@ from controller.sales import get_sales
 
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/merinafaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("/Users/merinafaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
+cred = credentials.Certificate("/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
@@ -50,7 +50,7 @@ db = client['capstone']
 collection = db['capstone']
 
 
-
+# test flask
 @app.route('/')
 def hello():
     return 'Hello, World!'
@@ -80,7 +80,7 @@ def sales_data():
 
 
 
-
+# raw data
 @app.route('/api/csvdata')
 def get_csvdata():
     data = []
@@ -90,7 +90,7 @@ def get_csvdata():
             data.append(row)
     return jsonify(data)
 
-
+# test front end
 @app.route("/members")
 def members():
     response_data = {"members" : ["Member 1", "Member 2", "Member 3"]}

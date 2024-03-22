@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import Nav from './components/Routes/Nav';
-import Home from './components/Home';
-import Customers from './components/Customers';
-import Sales from './components/Sales';
-import Packages from './components/Packages';
-import Campaigns from './components/Campaigns';
+import Home from './components/Dashbaord/Home';
+import Customers from './components/Customers/Customers';
+import Sales from './components/Sales/Sales'; 
+import Packages from './components/booking & packages/Packages';
+import Campaigns from './components/Campaigns/Campaigns'; 
 import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+
 
 function App() {
   return (

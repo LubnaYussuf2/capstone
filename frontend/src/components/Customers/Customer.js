@@ -17,7 +17,8 @@ const columns = [
                 {getInitials(params.row.name)}
             </Avatar>
         ) 
-    },    {field: 'id', headerName: 'ID', width: 50 },
+    },    
+    {field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'age', headerName: 'Age', width: 50 },
     { field: 'gender', headerName: 'Gender', width: 100 },
@@ -100,24 +101,26 @@ const Customer = () => {
 
 
     return (
-        <div className="customer-list">
-                    <div className="customer-list-content">
-                    {customerData ? (
-                            <div style={{ height: 400, width: '100%', margin: 15}}>
-                                <DataGrid
-                                    rows={customerData}
-                                    columns={columns}
-                                    pageSizeOptions={[5, 10]}
-                                    stickyHeader
-                                    // checkboxSelection
-                                    onRowClick={(row) => handleViewCustomer(row.id)}
-                                />
-                            </div>
-                        ) : (
-                            <p>Loading...</p>
-                        )}
-                    </div>
-                </div>
+        <>
+        {customerData ? (
+            <div style={{ height: 700, width: '100%', margin: 15, padding: 5}}>
+                <h3> Customer List</h3>
+                <DataGrid
+                    rows={customerData}
+                    columns={columns}
+                    pageSizeOptions={[5, 10]}
+                    stickyHeader
+                    // checkboxSelection
+                    onRowClick={(row) => handleViewCustomer(row.id)}
+                />
+            </div>
+            ) : (
+                <p>Loading...</p>
+            )
+        }
+                   
+        </>
+                    
     );
 }
 
