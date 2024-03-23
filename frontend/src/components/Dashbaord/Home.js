@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
+import CustomerCounts from './CustomerCounts';
 
 function Home() {
 
@@ -9,7 +10,7 @@ function Home() {
 
 
   return (
-    <div>
+    <div style={{ marginLeft: '250px' }}>
     {/* header */}
       <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>
@@ -43,7 +44,7 @@ function Home() {
       </AppBar>
 
       {/* Top section */}
-
+      <CustomerCounts />
       <Grid container spacing={2} sx={{ padding: '20px' }}>
         <Grid item xs={3}>
           <Paper sx={{ p: 8 }}>Section 1</Paper>

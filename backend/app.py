@@ -1,21 +1,22 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_pymongo import PyMongo
 import firebase_admin
 from firebase_admin import credentials, firestore as admin_firestore
+from flask_cors import CORS
+from pymongo import MongoClient
+import csv
 import os
+
 from testsAI.rfm_analysis import perform_rfm_analysis_and_update_mongodb
 from testsAI.training_random_forest import fetch_data_from_mongodb, train_random_forest_model
 from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
 from testsAI.rem_clusters import remove_cluster_from_percentage_of_data
 from testsAI.predict_clusters import fill_empty_clusters
-from flask import Flask, render_template
 from testsAI import cs_test  
 
-from flask_cors import CORS
-from pymongo import MongoClient
-import csv
-
 # functions
+from controller.cap import get_all_cap
+
 from controller.customer import get_all_customers
 from controller.customer import get_one_customer
 
@@ -75,7 +76,10 @@ def sales_data():
     # print(s)
     return get_sales()
 
-
+#Customers count
+@app.route('/cap')
+def cap_data():
+    return get_all_cap()
 
 
 

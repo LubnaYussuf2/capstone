@@ -4,21 +4,20 @@ import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
 
-
-
-
 const columns = [
     { 
         // field: 'profile', 
         headerName: 'Profile', 
         width: 70, 
         renderCell: (params) => (
-            <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getRandomColor() }}>
+            // <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getRandomColor() }}></Avatar>
+            <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getAvatarColor(params.row.name), color: 'black' }}>
                 {getInitials(params.row.name)}
             </Avatar>
         ) 
     },    
-    {field: 'id', headerName: 'ID', width: 50 },
+
+    // {field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 130 },
     { field: 'age', headerName: 'Age', width: 50 },
     { field: 'gender', headerName: 'Gender', width: 100 },
@@ -46,6 +45,18 @@ const columns = [
     //         `${params.row.firstName || ''} ${params.row.lastName || ''}`,
     // },
 ];
+
+// Define a list of colors for the profile avatars
+const avatarColors = ['#bee9e8', '#62b6cb', '#ece4db', '#cae9ff', '#7ca2a6', '#b8bedd'];
+// Adjust the function to use these colors
+const getAvatarColor = (name) => {
+    // Simple example: hash the name to get a consistent index
+    let sum = 0;
+    for (let i = 0; i < name.length; i++) {
+        sum += name.charCodeAt(i);
+    }
+    return avatarColors[sum % avatarColors.length];
+};
 
 const getRandomColor = () => {
     const letters = '0123456789ABCDEF';
@@ -102,23 +113,34 @@ const Customer = () => {
 
     return (
         <>
-        {customerData ? (
-            <div style={{ height: 700, width: '100%', margin: 15, padding: 5}}>
-                <h3> Customer List</h3>
-                <DataGrid
-                    rows={customerData}
-                    columns={columns}
-                    pageSizeOptions={[5, 10]}
-                    stickyHeader
-                    // checkboxSelection
-                    onRowClick={(row) => handleViewCustomer(row.id)}
-                />
-            </div>
-            ) : (
-                <p>Loading...</p>
-            )
-        }
-                   
+         {customerData ? (
+        <div style={{ height: 725, width: '60%', margin: 15, padding: 5, marginTop: 5 }}>
+          <h3>Customer List</h3>
+          <DataGrid
+            rows={customerData}
+            columns={columns}
+            pageSizeOptions={[5, 10]}
+            stickyHeader
+            onRowClick={(row) => console.log(`Row clicked: ${row.id}`)}
+            sx={{
+              // Targeting the header to change its background and text color
+              '& .MuiDataGrid-columnHeaders': {
+                // backgroundColor: '#DFECF7',
+                // color: 'white',
+                // fontWeight: 'bold',
+                borderBottom: 2,
+              },
+              // Targeting the footer to change its background and text color
+              '& .MuiDataGrid-footerContainer': {
+                // backgroundColor: '#E9EBF1',
+                color: 'white',
+              },
+            }}
+          />
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )} 
         </>
                     
     );
