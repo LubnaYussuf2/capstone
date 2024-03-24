@@ -21,7 +21,7 @@ const CustomerCounts = () => {
 
   // Organize data for the updated chart requirements
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  const labels = months; // Now, we only use month names as labels
+  const labels = months; // Now we only use month names as labels
   const data2022 = [];
   const data2023 = [];
 
@@ -51,7 +51,7 @@ const CustomerCounts = () => {
   return (
     <div>
       <h2>Customer Counts</h2>
-      <div style={{ height: '400px', width: '600px' }}>
+      <div style={{ height: '400px', width: '600px', paddingLeft:20 }}>
         <Bar
           data={chartData}
           options={{

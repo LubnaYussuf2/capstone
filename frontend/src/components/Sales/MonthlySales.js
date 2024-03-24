@@ -16,17 +16,13 @@ const MonthlySales = () => {
   // Calculate sales for the last 6 months
   const currentDate = new Date();
   const last6Months = Array.from({ length: 6 }, (_, i) => {
-    let month = currentDate.getMonth() - i; // 0-indexed month
-    let year = currentDate.getFullYear();
-    if (month < 0) {
-      month += 12; // Adjust for previous year
-      year--; // Decrement year
-    }
-    return `${year}-${month < 9 ? `0${month + 1}` : month + 1}`; // Adjust month to 1-indexed with leading zero
+    const month = currentDate.getMonth() - i;
+    const year = currentDate.getFullYear();
+    return `${year}-${(month + 12) % 12 + 1}`; // Adjust month to 1-indexed
   });
 
   const salesForLast6Months = salesData
-    .filter(sale => last6Months.includes(`${sale.Year}-${sale.Month}`))
+    .filter(sale => last6Months.includes(sale.Month + '-' + sale.Year))
     .reduce((total, sale) => total + sale.total_profit, 0);
 
   return (

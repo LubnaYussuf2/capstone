@@ -21,7 +21,7 @@ from controller.customer import get_all_customers
 from controller.customer import get_one_customer
 
 from controller.sales import get_sales
-
+from controller.customerSatisfaction import get_review 
 
 
 # Set environment variable for Google credentials
@@ -81,7 +81,10 @@ def sales_data():
 def cap_data():
     return get_all_cap()
 
-
+#Customers review
+@app.route('/review')
+def review_data():
+    return get_review()
 
 
 # raw data
