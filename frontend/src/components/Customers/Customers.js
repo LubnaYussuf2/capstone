@@ -2,6 +2,7 @@ import React from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 import Customer from './Customer';
+import SentimentAnalysis from '../SentimentAnalysis';
 
 function Customers() {
 
@@ -40,11 +41,27 @@ function Customers() {
          
         </Toolbar>
       </AppBar>
-      
 
-      
-      <Customer />
+      <div style={{ }}>
+        <Grid container spacing={4} sx={{ paddingTop: '20px' }}>
+          {/* Left side */}
+          <Grid item>
+          <Paper sx={{ height: '99%', p: 2}}><Customer /></Paper>
+          </Grid>
+          {/* Right side */}
+          <Grid item xs={4} container direction="column" spacing={2}>
+            <Grid item>
+            <Paper sx={{ height: '90%', p: 2}}><SentimentAnalysis /> </Paper>
+            </Grid>
+            <Grid item>
+              <Paper sx={{ height: '90%', p: 2}}>Section 3</Paper>
+            </Grid>
+          </Grid>
+        </Grid>
+      </div>
 
+     
+      
     </div>
   )
 }

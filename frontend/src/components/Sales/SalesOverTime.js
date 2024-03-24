@@ -98,7 +98,7 @@ function SalesOverTime() {
 
   return (
     <div>
-      <Grid container spacing={2} sx={{ padding: '20px' }}>
+      <Grid container spacing={2} sx={{ paddingLeft: '10px' }}>
         
         <Grid item xs={8}>
           <h2>Total Profit Over Time</h2>
@@ -107,7 +107,7 @@ function SalesOverTime() {
             onChange={handleYearChange}
             displayEmpty
             inputProps={{ 'aria-label': 'Select Year' }}
-            sx={{ marginBottom: 2 }}
+            sx={{ marginBottom: 0 }}
           >
             <MenuItem value="" disabled>Select Year</MenuItem>
             <MenuItem value={2020}>2020</MenuItem>
@@ -116,10 +116,8 @@ function SalesOverTime() {
             <MenuItem value={2023}>2023</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={8} >
-          <Paper  sx={{ padding: '20px' }}>
-            <canvas id="salesChart" width="400" height="200"></canvas> {/* Render the chart */}
-          </Paper>
+        <Grid item xs={10} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            <canvas id="salesChart" width="400" height="200"></canvas> 
         </Grid>
       </Grid>
     </div>

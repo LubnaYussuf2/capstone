@@ -19,12 +19,12 @@ const columns = [
 
     // {field: 'id', headerName: 'ID', width: 50 },
     { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'age', headerName: 'Age', width: 50 },
-    { field: 'gender', headerName: 'Gender', width: 100 },
-    { field: 'origin', headerName: 'Origin', width: 100 },
+    { field: 'age', headerName: 'Age', width: 45 },
+    { field: 'gender', headerName: 'Gender', width: 70 },
+    { field: 'origin', headerName: 'Origin', width: 80 },
     { field: 'email', headerName: 'E-Mail', width: 150 },
-    { field: 'phoneno', headerName: 'Phone Number', width: 130 },
-    { field: 'visits', headerName: 'Status', width: 100, 
+    { field: 'phoneno', headerName: 'Phone Number', width: 120 },
+    { field: 'visits', headerName: 'Status', width: 90, 
         renderCell: (params) => (
             <Chip
                 label={params.row.visits > 5 ? "Inactive" : "Active"}
@@ -114,14 +114,14 @@ const Customer = () => {
     return (
         <>
          {customerData ? (
-        <div style={{ height: 725, width: '60%', margin: 15, padding: 5, marginTop: 5 }}>
-          <h3>Customer List</h3>
+        <div style={{ height: 680, width: '97%', margin: 10, paddingBottom: 25 }}>
+          <h2>Customer List</h2>
           <DataGrid
             rows={customerData}
             columns={columns}
             pageSizeOptions={[5, 10]}
             stickyHeader
-            onRowClick={(row) => console.log(`Row clicked: ${row.id}`)}
+            onRowClick={(row) => console.log(handleViewCustomer(row.id))}
             sx={{
               // Targeting the header to change its background and text color
               '& .MuiDataGrid-columnHeaders': {
