@@ -1,37 +1,39 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template
 from flask_pymongo import PyMongo
 import firebase_admin
 from firebase_admin import credentials, firestore as admin_firestore
+from flask_cors import CORS
+from pymongo import MongoClient
+import csv
 import os
+
 from testsAI.rfm_analysis import perform_rfm_analysis_and_update_mongodb
 from testsAI.training_random_forest import fetch_data_from_mongodb, train_random_forest_model
 from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
 from testsAI.rem_clusters import remove_cluster_from_percentage_of_data
 from testsAI.predict_clusters import fill_empty_clusters
-from flask import Flask, render_template
 from testsAI import cs_test  
-
-from flask_cors import CORS
-from pymongo import MongoClient
-import csv
+from testsAI.ai_email import generate_email_custom
 
 # functions
+from controller.cap import get_all_cap
+
 from controller.customer import get_all_customers
 from controller.customer import get_one_customer
 
 from controller.sales import get_sales
-
+from controller.customerSatisfaction import get_review 
 
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/merinafaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\nihni\\OneDrive\\Desktop\\capstone-2\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("/Users/merinafaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
+cred = credentials.Certificate("C:\\Users\\nihni\\OneDrive\\Desktop\\capstone-2\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
@@ -50,7 +52,7 @@ db = client['capstone']
 collection = db['capstone']
 
 
-
+# test flask
 @app.route('/')
 def hello():
     return 'Hello, World!'
@@ -75,12 +77,18 @@ def sales_data():
     # print(s)
     return get_sales()
 
+#Customers count
+@app.route('/cap')
+def cap_data():
+    return get_all_cap()
+
+#Customers review
+@app.route('/review')
+def review_data():
+    return get_review()
 
 
-
-
-
-
+# raw data
 @app.route('/api/csvdata')
 def get_csvdata():
     data = []
@@ -90,8 +98,8 @@ def get_csvdata():
             data.append(row)
     return jsonify(data)
 
-
-@app.route("/members")
+# test front end
+@app.route("/")
 def members():
     response_data = {"members" : ["Member 1", "Member 2", "Member 3"]}
     print("Response data:", response_data)
@@ -160,6 +168,34 @@ def cs_test_route():
 
     # Render the template with the analysis results passed as context
     return render_template('cs_test_output.html', count_table=count_table, html_plot=html_plot, satisfaction_percentage=satisfaction_percentage)
+
+
+# new addition - AI emailing 
+
+@app.route('/generate_email')
+
+def generate_email():     # logic can be added to get the cluster or any other parameters needed for the email generation
+
+    cluster = "Churning or At Risk" # this will be option selected from teh frontend
+    email_prompt = f"""
+    Generate a marketing email for a tourist belonging to {cluster} as per the data and previous experiences.
+    The email should address concerns of the customer, highlight the unique benefits of our services,
+    personalized travel plans, and exclusive offers for loyal customers. 
+    The tone should be professional warm, inviting, and reassuring, emphasizing our commitment to providing unforgettable travel experiences.
+    """
+    
+    # Generate the email content
+    email_content = generate_email_custom(email_prompt)
+    
+    # Return the generated email content as a JSON response, or you could render it in an HTML template
+    return render_template('generated_email.html', email_content=email_content)
+    # return jsonify({'generated_email': email_content})
+
+
+
+
+
+
 
 
 # if __name__ == '__main__':

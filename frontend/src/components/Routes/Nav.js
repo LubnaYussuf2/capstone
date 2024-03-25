@@ -7,15 +7,15 @@ const Nav = () => {
   const location = useLocation();
 
   return (
-    <nav style={{ width: '250px', borderRight: '1px solid #ccc' }}>
-      <AppBar position="static" sx={{ width: '250px', height: '98.4vh', backgroundColor: '#fff', boxShadow: 'none' }}>
-        <Toolbar>
+    <nav style={{ width: '250px', borderRight: '1px solid #ccc', height: '100vh', position: 'fixed'  }}>
+      <AppBar position="static" sx={{ width: '250px', backgroundColor: '#fff', boxShadow: 'none' }}>
+        <Toolbar sx={{ marginTop: '20px' }}>
           {/* Logo placeholder */}
           <Typography variant="h6" noWrap>
             <img src={process.env.PUBLIC_URL + '/logo2.png'} alt="Logo" style={{ width: '80%' }} />
           </Typography>
         </Toolbar>
-        <List sx={{ margin: 0, padding: 0, marginTop: 5 }}>
+        <List sx={{ margin: 0, padding: 0, marginTop: 2 }}>
         <ListItem
             button
             component={Link}
@@ -195,7 +195,7 @@ const Nav = () => {
           </ListItem> */}
 
           {/* Logout placeholder */}
-          <div style={{ marginTop: '120%', color: '#808080', fontSize: '12px' }}>
+          <div style={{ marginTop: '100%', color: '#808080', fontSize: '12px' }}>
             
           </div>
           <ListItem button>

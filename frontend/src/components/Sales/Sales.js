@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
-import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
+import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 
-function Home() {
+import MonthlySales from './MonthlySales';
+import SalesOverTime from './SalesOverTime';
 
-  // user's name 
+function Sales() {
   const userName = "ukoo";
 
-
   return (
-    <div>
-    {/* header */}
+    <div style={{ marginLeft: '250px' }}>
       <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
-            Dashboard
+            Sales
           </Typography>
-
           <Stack direction="row" spacing={0} alignItems="center">
             <TextField
               placeholder="Search..."
@@ -28,55 +26,49 @@ function Home() {
               <FilterListIcon />
             </IconButton>
           </Stack>
-
-
           <IconButton color="disabled" aria-label="notifications">
             <NotificationsIcon />
           </IconButton>
-
           <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
               Welcome, {userName}
           </Typography>
           <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
-         
         </Toolbar>
       </AppBar>
 
-      {/* Top section */}
+      <Grid container spacing={3} sx={{ padding: '20px' }}>
+        {/* Left side */}
+        <Grid item container spacing={4} xs={8}>
+          <Grid item xs={4}>
+            <Paper sx={{ height: '200px', p: 2 }}><MonthlySales /></Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper sx={{ height: '200px', p: 2 }}>Section 2</Paper>
+          </Grid>
+          <Grid item xs={4}>
+            <Paper sx={{ height: '200px', p: 2 }}>Section 3</Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ height: '550px', pl: 2 }}><SalesOverTime /></Paper>
+          </Grid>
+        </Grid>
 
-      <Grid container spacing={2} sx={{ padding: '20px' }}>
-        <Grid item xs={3}>
-          <Paper sx={{ p: 8 }}>Section 1</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper sx={{ p: 8 }}>Section 2</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper sx={{ p: 8 }}>Section 2</Paper>
-        </Grid>
-        <Grid item xs={3}>
-          <Paper sx={{ p: 8 }}>Section 4</Paper>
+        {/* Right side */}
+        <Grid item container  spacing={3} xs={4} >
+          <Grid item xs={12}>
+            <Paper sx={{ height: '300px', p: 2 }}>Section 5</Paper>
+          </Grid>
+          <Grid item xs={12}>
+            <Paper sx={{ height: '400px', p: 2}}>Section 6</Paper>
+          </Grid>
         </Grid>
       </Grid>
 
-      {/* Middle section */}
+      {/* <MonthlySales />
+      <SalesOverTime /> */}
 
-      <Grid container spacing={2} sx={{ padding: '20px' }}>
-        <Grid item xs={6}>
-          <Paper sx={{ p: 20 }}> Cutomer Count </Paper>
-        </Grid>
-        <Grid item xs={6}>
-          <Paper sx={{ p: 20 }}>Email Campaign</Paper>
-        </Grid>
-      </Grid>
-
-      {/* Last section */}
-
-      <Grid sx={{ padding: '20px' }}>
-        <Paper sx={{ p: 20 }}> Popular Packages </Paper>
-      </Grid>
     </div>
   );
 }
 
-export default Home;
+export default Sales;

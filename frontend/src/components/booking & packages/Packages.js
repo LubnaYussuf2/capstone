@@ -2,18 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 
-function Sales() {
+function Packages() {
     // user's name 
   const userName = "ukoo";
 
-
   return (
-    <div>
-    {/* header */}
+     <div style={{ marginLeft: '250px' }}>
     <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
-          Sales
+          Bookings & Packages
         </Typography>
 
         <Stack direction="row" spacing={0} alignItems="center">
@@ -41,35 +39,11 @@ function Sales() {
       </Toolbar>
     </AppBar>
 
-      <Grid container spacing={2} sx={{ padding: '20px' }}>
-        {/* Left side */}
-        <Grid item container spacing={3} xs={8}>
-          <Grid item xs={4}>
-            <Paper sx={{ p: 12 }}>Section 1</Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper sx={{ p: 12 }}>Section 2</Paper>
-          </Grid>
-          <Grid item xs={4}>
-            <Paper sx={{ p: 12 }}>Section 3</Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 35 }}>Section 4</Paper>
-          </Grid>
-        </Grid>
+    <h2>Main Content</h2>
 
-        {/* Right side */}
-        <Grid item container  spacing={3} xs={4} >
-          <Grid item xs={12}>
-            <Paper sx={{ p: 15.8 }}>Section 5</Paper>
-          </Grid>
-          <Grid item xs={12}>
-            <Paper sx={{ p: 30 }}>Section 6</Paper>
-          </Grid>
-        </Grid>
-      </Grid>
+    {/* Add more content here */}
   </div>
   )
 }
 
-export default Sales
+export default Packages

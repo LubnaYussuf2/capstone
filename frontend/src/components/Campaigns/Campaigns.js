@@ -2,16 +2,16 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 
-function Packages() {
+function Campaigns() {
     // user's name 
   const userName = "ukoo";
 
   return (
-     <div>
+    <div style={{ marginLeft: '250px' }}>
     <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
-          Bookings & Packages
+          Campaign
         </Typography>
 
         <Stack direction="row" spacing={0} alignItems="center">
@@ -46,4 +46,4 @@ function Packages() {
   )
 }
 
-export default Packages
+export default Campaigns
