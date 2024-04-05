@@ -13,10 +13,12 @@ import logging
 from testsAI.rfm_analysis import perform_rfm_analysis
 from testsAI.training_random_forest import train_and_save_random_forest_model
 from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
-from testsAI.rem_clusters import remove_cluster_from_percentage_of_data
-from testsAI.predict_clusters import prepare_data_for_prediction
 from testsAI import cs_test
 from testsAI.ai_email import generate_email_custom
+
+# socket I/O
+
+from flask_socketio import SocketIO
 
 # functions
 from controller.cap import get_all_cap
@@ -33,6 +35,8 @@ os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\bac
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 # Initialize Firebase Admin SDK
@@ -98,11 +102,6 @@ def update_clusters_for_new_profile(change):
         document['Total_Spendings']
     ]
 
-    # Log the expected features and extracted prediction features
-    # expected_features = ['Tourist_ID', 'Income_USD', 'Num_of_Visits', 'Total_Spendings']
-    # print("Expected features:", expected_features)
-    # print("Prediction features:", prediction_features)
-
     # Convert prediction_features to a 2D list as expected by the predict method
     prediction_features_2d = [prediction_features]
 
@@ -113,6 +112,14 @@ def update_clusters_for_new_profile(change):
         # Update both collections with the predicted cluster
         profiles.update_one({"Tourist_ID": new_tourist_id}, {"$set": {"cluster": predicted_cluster}})
         customers.update_one({"Tourist_ID": new_tourist_id}, {"$set": {"cluster": predicted_cluster}})
+        
+        # send message to frontend that cluster was updated
+        socketio.emit('cluster_update', {'Tourist_ID': new_tourist_id})
+        socketio.emit('new_task', {
+                        'Tourist_ID': new_tourist_id,
+                        'cluster': predicted_cluster,
+                    })
+        
     except Exception as e:
         logging.error("Error updating MongoDB document", exc_info=True)
 
@@ -224,11 +231,6 @@ def targeted_marketing():
 
     return jsonify({'message': 'Recommended package added successfully'})
 
-
-@app.route('/clear_cluster')
-def clear_cluster():
-    remove_cluster_from_percentage_of_data(0.3)
-    return jsonify({'message': 'Clusters removed successfully'})
 
 
 @app.route('/cs-test')

@@ -10,6 +10,7 @@ import Campaigns from './components/Campaigns/Campaigns';
 import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import Tasks from './components/Tasks/tasks'; // Import your tasks component
 
 
 function App() {
@@ -38,6 +39,7 @@ const ProtectedRoutes = () => {
           <Route path="/sales" element={<Sales />} />
           <Route path="/packages" element={<Packages />} />
           <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
         </Routes>
       </div>

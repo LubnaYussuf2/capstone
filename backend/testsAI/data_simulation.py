@@ -32,7 +32,7 @@ def generate_random_customer(tourist_id):
 
 
 # Starting Tourist_ID after the existing range to avoid duplicates
-start_tourist_id = 8080
+start_tourist_id = 8000
 
 # Generate and insert data
 for i in range(start_tourist_id, start_tourist_id + 1):  # Adjust the range as needed

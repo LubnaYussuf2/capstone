@@ -99,6 +99,23 @@ const Nav = () => {
             </ListItemIcon>
             <ListItemText primary="Campaigns" sx={{ color: '#001a4d' }} />
           </ListItem>
+          <ListItem
+            button
+            component={Link}
+            to="/tasks"
+            selected={location.pathname === '/tasks'}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(0, 0, 255, 0.1)',
+              },
+            }}
+          >
+            <ListItemIcon sx={{ color: '#001a4d' }}>
+              <EventNoteIcon />
+            </ListItemIcon>
+            <ListItemText primary="Tasks" sx={{ color: '#001a4d' }} />
+          </ListItem>
+
           
           {/* Add more ListItems for other sections */}
 
