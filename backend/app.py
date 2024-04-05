@@ -43,14 +43,14 @@ firebase_admin.initialize_app(cred)
 firebase_db = admin_firestore.client()
 
 # Configure Flask app for MongoDB
-app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:bekirWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 # print(mongo.db)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
 
 # Connect to MongoDB
-client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb+srv://capstonegirls2024:bekirWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
 db = client['capstone']
 capstone = db['capstone']
 reviews = db['reviews']
