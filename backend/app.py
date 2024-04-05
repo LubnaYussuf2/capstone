@@ -23,6 +23,8 @@ from controller.customer import get_one_customer
 from controller.sales import get_sales
 from controller.customerSatisfaction import get_review 
 
+from controller.data import get_data_col
+
 
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
@@ -86,6 +88,10 @@ def cap_data():
 def review_data():
     return get_review()
 
+#data collection
+@app.route('/data')
+def data_collection():
+    return get_data_col()
 
 # raw data
 @app.route('/api/csvdata')
