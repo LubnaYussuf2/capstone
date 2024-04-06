@@ -18,6 +18,8 @@ pip3 install nltk
 pip3 install scikit-learn
 pip3 install pandas
 pip3 install matplotlib
+pip3 install flask-socketio
+
 
 # win: 
 <!-- same as mac but pip instead of pip3 -->
