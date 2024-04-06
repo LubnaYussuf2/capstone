@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 import CustomerCounts from './CustomerCounts';
-
+import SentimentAnalysis from '../SentimentAnalysis';
+import PopularPackages from './PopularPackages';
 
 function Home() {
 
@@ -73,14 +74,15 @@ function Home() {
           <Paper sx={{ height: '470px', p: 2}}> <CustomerCounts /> </Paper>
         </Grid>
         <Grid item xs={6}>
-          <Paper sx={{ height: '470px', p: 2 }}>Email Campaign</Paper>
+          {/* <Paper sx={{ height: '470px', p: 2 }}>Email Campaign</Paper> */}
+          <Paper sx={{ height: '90%', p: 2}}><SentimentAnalysis /> </Paper>
         </Grid>
       </Grid>
 
       {/* Last section */}
 
       <Grid sx={{ padding: '20px' }}>
-        <Paper sx={{ height: '200px', p: 2 }}> Popular Packages </Paper>
+         <PopularPackages /> 
       </Grid>
     </div>
   );

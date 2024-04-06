@@ -25,6 +25,7 @@ from controller.customerSatisfaction import get_review
 
 from controller.data import get_data_col
 
+from controller.packageList import get_package
 
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
@@ -93,6 +94,13 @@ def review_data():
 def data_collection():
     return get_data_col()
 
+#package collection
+@app.route('/package')
+def package_data():
+    return get_package()
+
+# ------------------------------------------------------------------------------------
+
 # raw data
 @app.route('/api/csvdata')
 def get_csvdata():
@@ -110,7 +118,7 @@ def members():
     print("Response data:", response_data)
     return jsonify(response_data)
 
-
+# ------------------------------------------------------------------------------------
 
 @app.route('/mongo')
 def mongo_test():

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 // import '../components/customer.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
@@ -77,6 +78,7 @@ const getInitials = (name) => {
 
 const Customer = () => {
     const [customerData, setCustomerData] = useState(null)
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetch("http://127.0.0.1:5000/customers")
@@ -94,6 +96,7 @@ const Customer = () => {
                 // .then(customerData => {
                 //   setCustomerData(customerData);
                 //   console.log(customerData); 
+                
             })
             .catch(error => console.error("Error fetching data:", error));
     }, []);
@@ -106,9 +109,16 @@ const Customer = () => {
                 // Handle the response data
                 console.log(data);
                 console.log("i worked")
+                 // Navigate to CustomerProfile component with the customer's ID
+                navigate(`/customer/${customerId}`);
             })
             .catch(error => console.error("Error fetching customer data:", error));
     };
+
+    // const handleViewCustomer = (customerId) => {
+    //     // Navigate to CustomerProfile component with the customer's ID
+    //     navigate(`/customer/${customerId}`);
+    // };
 
 
     return (

@@ -30,9 +30,9 @@ function SalesOverTime() {
     filteredData.forEach(entry => {
       const monthKey = entry.Month; // Use month names directly
       if (!monthlyProfitMap[monthKey]) {
-        monthlyProfitMap[monthKey] = entry["Total profit"];
+        monthlyProfitMap[monthKey] = entry["Total Profit"];
       } else {
-        monthlyProfitMap[monthKey] += entry["Total profit"];
+        monthlyProfitMap[monthKey] += entry["Total Profit"];
       }
     });
   

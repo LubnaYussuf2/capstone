@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 const SentimentAnalysis = () => {
   const [reviewData, setReviewData] = useState([]);
@@ -22,7 +22,6 @@ const SentimentAnalysis = () => {
   const [sentimentCounts, setSentimentCounts] = useState(initialSentimentCounts);
 
   useEffect(() => {
-    // Update sentimentCounts when reviewData changes
     const updatedSentimentCounts = reviewData.reduce((acc, review) => {
       const sentiment = review.sentiment_classification;
       const score = review.sentiment_score;
@@ -36,61 +35,84 @@ const SentimentAnalysis = () => {
     setSentimentCounts(updatedSentimentCounts);
   }, [reviewData]);
 
+  const averageSentimentScore = Object.values(sentimentCounts).reduce((acc, { totalScore, count }) => acc + (count ? totalScore / count : 0), 0) / Object.values(sentimentCounts).filter(({ count }) => count > 0).length;
+  
   // Calculate average sentiment score
-  const averageSentimentScore = Object.values(sentimentCounts).reduce((acc, { totalScore, count }) => {
+  const averageSentimentScore2 = Object.values(sentimentCounts).reduce((acc, { totalScore, count }) => {
     if (count > 0) {
       return acc + totalScore / count;
     }
     return acc;
   }, 0);
 
-  // Prepare data for the chart
-  const labels = Object.keys(sentimentCounts);
-  const data = Object.values(sentimentCounts).map(({ count }) => count);
 
+  // Plugin definition inside the component to access the averageSentimentScore
+  const centerTextPlugin = {
+    id: 'centerTextPlugin',
+    afterDraw: (chart) => {
+      const ctx = chart.ctx;
+      const width = chart.chartArea.right;
+      const height = chart.chartArea.bottom;
+      ctx.save();
+      ctx.font = '20px Arial';
+      ctx.fillStyle = 'black';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      const text = `${(averageSentimentScore2*100).toFixed(0)}%`;
+      ctx.fillText(text, width / 2, height / 2);
+      ctx.restore();
+    }
+  };
+  
   const chartData = {
-    labels,
+    labels: Object.keys(sentimentCounts),
     datasets: [
       {
         label: 'Sentiment Counts',
-        data,
+        data: Object.values(sentimentCounts).map(({ count }) => count),
         backgroundColor: [
-            '#bee9e8', '#62b6cb', '#ece4db', '#cae9ff', '#7ca2a6', '#b8bedd'
+          '#6f2dbd', '#a663cc', '#b298dc', '#b8d0eb', '#b9faf8'
         ],
+        hoverOffset: 4
       },
     ],
   };
 
+  const options = {
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: {
+        display: true,
+        position: 'right',
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            let label = context.label || '';
+            if (label) {
+              label += ': ';
+            }
+            const total = context.dataset.data.reduce((acc, value) => acc + value, 0);
+            const value = context.raw;
+            const percentage = ((value / total) * 100).toFixed(2) + '%';
+            label += `${value} (${percentage})`;
+            return label;
+          }
+        }
+      },
+    },
+  };
+
   return (
-    <div style={{  }}>
-      <h2>Sentiment Analysis</h2>
-      <div style={{ height: '300px', width: '500px'}}>
-        <Bar
-          data={chartData}
-          options={{
-            maintainAspectRatio: false,
-            scales: {
-              x: { stacked: true,
-                grid: {
-                    display: false, // Adjust grid line display here
-                },
-             },
-              y: { stacked: true,
-                grid: {
-                    display: false, // Adjust grid line display here
-                },
-             },
-            
-            },
-            plugins: {
-                legend: { display: false }, // Hide the legend
-            },
-            barPercentage: 0.8,
-            categoryPercentage: 0.8,
-          }}
-        />
-      </div>
-      <p>Average Sentiment Score: {averageSentimentScore.toFixed(2)}</p>
+    <div style={{ height: '300px', width: '500px' }}>
+      {/* {averageSentimentScore2} */}
+      <h2>Sentiment Analysis {(averageSentimentScore2*100).toFixed(0)}%</h2>
+      <Doughnut 
+        data={chartData} 
+        options={options}
+        plugins={[centerTextPlugin]} // Register the plugin for use
+      />
     </div>
   );
 };
