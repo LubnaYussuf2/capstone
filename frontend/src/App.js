@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Nav from './components/Routes/Nav';
 import Home from './components/Dashbaord/Home';
 import Customers from './components/Customers/Customers';
@@ -11,7 +10,6 @@ import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import Tasks from './components/Tasks/tasks'; // Import your tasks component
-
 import CustomerProfile from './components/Customers/CustomerProfile';
 
 function App() {
@@ -21,6 +19,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+          {/* <Route path="/logout" element={<Logout />} /> */}
+
         <Route path="/*" element={<ProtectedRoutes />} />
       </Routes>
     </Router>
@@ -28,6 +28,7 @@ function App() {
 }
 
 const ProtectedRoutes = () => {
+  
   return (
     <div style={{ display: 'flex' }}>
       <Nav />

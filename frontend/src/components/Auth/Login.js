@@ -1,10 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
+import { auth } from './firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
-  const handleSubmit = (event) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add your login logic here
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      // Redirect to homepage or handle login success in any way you prefer
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Error during login:', error);
+      setErrorMessage('Invalid email or password');
+    }
   };
 
   return (
@@ -15,11 +29,25 @@ const Login = () => {
             Login
           </Typography>
           <form onSubmit={handleSubmit}>
-            <TextField label="Email" fullWidth margin="normal" />
-            <TextField label="Password" fullWidth margin="normal" type="password" />
+            <TextField
+              label="Email"
+              fullWidth
+              margin="normal"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <TextField
+              label="Password"
+              fullWidth
+              margin="normal"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
             <Button type="submit" variant="contained" color="primary" fullWidth>
               Login
             </Button>
+            {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         </Paper>
       </Box>
