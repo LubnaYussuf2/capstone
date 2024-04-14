@@ -27,3 +27,6 @@ pip install Flask-PyMongo
 npm install react-router-dom
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
+
+#backend
+npm install pyrebase

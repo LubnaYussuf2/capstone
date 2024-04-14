@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request, session, redirect
 from flask_pymongo import PyMongo
 import firebase_admin
 from firebase_admin import credentials, firestore as admin_firestore
@@ -6,6 +6,8 @@ from flask_cors import CORS
 from pymongo import MongoClient
 import csv
 import os
+import pyrebase
+
 
 from testsAI.rfm_analysis import perform_rfm_analysis_and_update_mongodb
 from testsAI.training_random_forest import fetch_data_from_mongodb, train_random_forest_model
@@ -25,14 +27,19 @@ from controller.customerSatisfaction import get_review
 
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
+#authentication
+
+
+
+app.secret_key='secret' #protects session keys
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
+cred = credentials.Certificate("\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
@@ -53,8 +60,14 @@ collection = db['capstone']
 
 # test flask
 @app.route('/')
-def hello():
+def home():
     return 'Hello, World!'
+    
+#auth
+# @app.route('/')
+# def hello():
+#     return 'Hello, World!'
+
 
 
 #Customers screen

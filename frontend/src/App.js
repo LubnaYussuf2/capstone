@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Nav from './components/Routes/Nav';
 import Home from './components/Dashbaord/Home';
 import Customers from './components/Customers/Customers';
@@ -11,6 +10,9 @@ import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 
+import firebase from 'firebase/app';
+import 'firebase/auth'; 
+import 'firebase/firestore'; 
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+          {/* <Route path="/logout" element={<Logout />} /> */}
+
         <Route path="/*" element={<ProtectedRoutes />} />
       </Routes>
     </Router>
@@ -28,6 +32,7 @@ function App() {
 }
 
 const ProtectedRoutes = () => {
+  
   return (
     <div style={{ display: 'flex' }}>
       <Nav />
@@ -45,46 +50,7 @@ const ProtectedRoutes = () => {
  )
 }
 
+
 export default App;
 
 
-// function App() {
-//   // Define state variables to hold data
-//   const [dat, setDat] = useState("");
-
-//   useEffect(() => {
-//     // Fetch data from Flask backend when component mounts
-//     axios.get('http://127.0.0.1:5000/get-data')
-//       .then(response => {
-//         // Update state with fetched data
-//         setDat(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching data:', error);
-//       });
-//   }, []);
-
-//   const sendData = () => {
-//     // Example function to send data to Flask backend
-//     axios.post('http://127.0.0.1:5000/save-data')
-//       .then(response => {
-//         console.log(response.data);
-//       })
-//       .catch(error => {
-//         console.error('Error saving data:', error);
-//       });
-//   };
-
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         {/* Render fetched data */}
-//         <p>{dat}</p>
-//         {/* Button to trigger sendData function */}
-//         <button onClick={sendData}>Send Data</button>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
