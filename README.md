@@ -6,7 +6,8 @@ AI Driven CRM - Capstone Project Winter 2024
 
 # initiate venv-
 mac: source venv/bin/activate
-win: venv/bin/activate
+
+win: venv/bin/activate (bin or Scripts - depends)
 
 ---Flask----  
 # mac: 
@@ -17,6 +18,8 @@ pip3 install nltk
 pip3 install scikit-learn
 pip3 install pandas
 pip3 install matplotlib
+pip3 install flask-socketio
+
 
 # win: 
 <!-- same as mac but pip instead of pip3 -->
@@ -27,6 +30,5 @@ pip install Flask-PyMongo
 npm install react-router-dom
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
-
-#backend
-npm install pyrebase
+npm install react-chartjs-2 chart.js
+npm install recharts

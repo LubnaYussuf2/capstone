@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Nav from './components/Routes/Nav';
 import Home from './components/Dashbaord/Home';
@@ -9,16 +9,12 @@ import Campaigns from './components/Campaigns/Campaigns';
 import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-
-import firebase from 'firebase/app';
-import 'firebase/auth'; 
-import 'firebase/firestore'; 
+import Tasks from './components/Tasks/tasks'; // Import your tasks component
+import CustomerProfile from './components/Customers/CustomerProfile';
 
 function App() {
   return (
-    // <div>
-    //   <CustomerScreen />
-    // </div>
+
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
@@ -40,17 +36,17 @@ const ProtectedRoutes = () => {
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/customers" element={<Customers />} />
+          <Route path="/customers/:id" element={<CustomerProfile />} /> 
           <Route path="/sales" element={<Sales />} />
           <Route path="/packages" element={<Packages />} />
           <Route path="/campaigns" element={<Campaigns />} />
+          <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
+          {/* Add other routes here */}
         </Routes>
       </div>
     </div>
  )
 }
 
-
 export default App;
-
-

@@ -1,12 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
-
-import MonthlySales from './MonthlySales';
 import SalesOverTime from './SalesOverTime';
+import SalesTrend from './SalesTrend';
+import PackagePerformance from './PackagePerformance';
 
 function Sales() {
   const userName = "ukoo";
+  const [totalSalesLastYear, setTotalSalesLastYear] = useState(0);
+
+  useEffect(() => {
+    fetch('http://127.0.0.1:5000/sales')
+      .then(response => response.json())
+      .then(data => {
+        if (data && Array.isArray(data)) {
+          const currentDate = new Date();
+          const lastYear = currentDate.getFullYear() - 1;
+          const totalSales = data.reduce((total, sale) => {
+            const saleYear = new Date(sale.Year, 0).getFullYear();
+            if (saleYear === lastYear) {
+              return total + sale.package_sold;
+            }
+            return total;
+          }, 0);
+          setTotalSalesLastYear(totalSales);
+        }
+      })
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
 
   return (
     <div style={{ marginLeft: '250px' }}>
@@ -36,11 +58,14 @@ function Sales() {
         </Toolbar>
       </AppBar>
 
+      <SalesTrend />
+      <PackagePerformance />
+
       <Grid container spacing={3} sx={{ padding: '20px' }}>
         {/* Left side */}
         <Grid item container spacing={4} xs={8}>
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}><MonthlySales /></Paper>
+            <Paper sx={{ height: '200px', p: 2 }}>Total Sales Last Year: {totalSalesLastYear}</Paper>
           </Grid>
           <Grid item xs={4}>
             <Paper sx={{ height: '200px', p: 2 }}>Section 2</Paper>
