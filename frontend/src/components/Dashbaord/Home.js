@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 import CustomerCounts from './CustomerCounts';
-import SentimentAnalysis from '../SentimentAnalysis';
+import SalesTrend from '../Sales/SalesTrend';
 import PopularPackages from './PopularPackages';
 
 function Home() {
@@ -45,11 +45,6 @@ function Home() {
         </Toolbar>
       </AppBar>
 
-     
-      
-
-     
-
 
       {/* Top section */}
       <Grid container spacing={2} sx={{ padding: '20px', paddingBottom: "5px" }}>
@@ -71,11 +66,11 @@ function Home() {
 
       <Grid container spacing={3} sx={{ padding: '20px', paddingBottom: "5px" }}>
         <Grid item xs={6}>
-          <Paper sx={{ height: '470px', p: 2}}> <CustomerCounts /> </Paper>
+          <Paper sx={{ height: '90%', p: 2, pb: 3.4}}> <SalesTrend /> </Paper>
         </Grid>
         <Grid item xs={6}>
           {/* <Paper sx={{ height: '470px', p: 2 }}>Email Campaign</Paper> */}
-          <Paper sx={{ height: '90%', p: 2}}><SentimentAnalysis /> </Paper>
+          <Paper sx={{ height: '470px', p: 2}}> <CustomerCounts /> </Paper>
         </Grid>
       </Grid>
 

@@ -35,6 +35,7 @@ const PopularPackages = () => {
 
     const sortedPackages = Object.entries(packageCounts)
       .sort(([, countA], [, countB]) => sortOrder === 'asc' ? countA - countB : countB - countA)
+      // .slice(0, 3)
       .map(([packageName, count]) => ({
         packageName,
         packageType: packageTypeMap[packageName],

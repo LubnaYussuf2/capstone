@@ -47,22 +47,22 @@ const SentimentAnalysis = () => {
 
 
   // Plugin definition inside the component to access the averageSentimentScore
-  const centerTextPlugin = {
-    id: 'centerTextPlugin',
-    afterDraw: (chart) => {
-      const ctx = chart.ctx;
-      const width = chart.chartArea.right;
-      const height = chart.chartArea.bottom;
-      ctx.save();
-      ctx.font = '20px Arial';
-      ctx.fillStyle = 'black';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      const text = `${(averageSentimentScore2*100).toFixed(0)}%`;
-      ctx.fillText(text, width / 2, height / 2);
-      ctx.restore();
-    }
-  };
+  // const centerTextPlugin = {
+  //   id: 'centerTextPlugin',
+  //   afterDraw: (chart) => {
+  //     const ctx = chart.ctx;
+  //     const width = chart.chartArea.right;
+  //     const height = chart.chartArea.bottom;
+  //     ctx.save();
+  //     ctx.font = '20px Arial';
+  //     ctx.fillStyle = 'black';
+  //     ctx.textAlign = 'center';
+  //     ctx.textBaseline = 'middle';
+  //     const text = `${(averageSentimentScore2*100).toFixed(0)}%`;
+  //     ctx.fillText(text, width / 2, height / 2);
+  //     ctx.restore();
+  //   }
+  // };
   
   const chartData = {
     labels: Object.keys(sentimentCounts),
@@ -106,12 +106,12 @@ const SentimentAnalysis = () => {
 
   return (
     <div style={{ height: '300px', width: '500px' }}>
-      {/* {averageSentimentScore2} */}
-      <h2>Sentiment Analysis {(averageSentimentScore2*100).toFixed(0)}%</h2>
+      {/* {(averageSentimentScore2*100).toFixed(0)}% */}
+      <h2>Sentiment Analysis</h2>
       <Doughnut 
         data={chartData} 
         options={options}
-        plugins={[centerTextPlugin]} // Register the plugin for use
+        // plugins={[centerTextPlugin]} // Register the plugin for use
       />
     </div>
   );

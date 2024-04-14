@@ -36,6 +36,7 @@ from controller.packageList import get_package
 # Set environment variable for Google credentials
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
+
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 
@@ -48,7 +49,6 @@ CORS(app)  # Enable CORS for all routes
 cred = credentials.Certificate("\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 socketio = SocketIO(app, cors_allowed_origins="*")
 
-# Initialize Firebase Admin SDK
 firebase_admin.initialize_app(cred)
 
 # Firestore client

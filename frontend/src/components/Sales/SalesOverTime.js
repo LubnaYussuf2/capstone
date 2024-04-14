@@ -116,7 +116,7 @@ function SalesOverTime() {
             <MenuItem value={2023}>2023</MenuItem>
           </Select>
         </Grid>
-        <Grid item xs={10} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Grid item xs={11} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <canvas id="salesChart" width="400" height="200"></canvas> 
         </Grid>
       </Grid>
