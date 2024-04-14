@@ -20,6 +20,7 @@ pip3 install pandas
 pip3 install matplotlib
 pip3 install flask-socketio
 
+
 # win: 
 <!-- same as mac but pip instead of pip3 -->
 pip install Flask-PyMongo 
