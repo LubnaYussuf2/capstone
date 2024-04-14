@@ -34,7 +34,7 @@ from controller.data import get_data_col
 from controller.packageList import get_package
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -43,7 +43,7 @@ socketio = SocketIO(app, cors_allowed_origins="*")
 
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("C:\\Users\\Lenovo\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
+cred = credentials.Certificate("/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client

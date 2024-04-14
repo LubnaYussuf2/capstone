@@ -32,3 +32,4 @@ npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/icons-material
 npm install react-chartjs-2 chart.js
 npm install recharts
+npm install socket.io-client

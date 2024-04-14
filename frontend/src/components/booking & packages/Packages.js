@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 
+import PackagePerformance from '../Sales/PackagePerformance';
+
 function Packages() {
     // user's name 
   const userName = "ukoo";
@@ -39,9 +41,10 @@ function Packages() {
       </Toolbar>
     </AppBar>
 
-    <h2>Main Content</h2>
+    <div style={{padding:20}}> 
+      <PackagePerformance />
+    </div>
 
-    {/* Add more content here */}
   </div>
   )
 }
