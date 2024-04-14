@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid
 import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 import Customer from './Customer';
 import ActiveCus from './ActiveCus';
+import SentimentAnalysis from '../SentimentAnalysis';
 
 function Customers() {
 
@@ -74,10 +75,14 @@ function Customers() {
           {/* Right side */}
           <Grid item xs={4} container direction="column" spacing={2}>
             <Grid item>
-            <Paper sx={{ height: '90%', p: 2}}>{`Total Customers: ${totalCustomers}`}</Paper>
+            <Paper sx={{ height: '90%', p: 2}}>{`Total Customers: ${totalCustomers}`} <br></br> 
+              {`Loyalty Program Customers: ${loyaltyProgramCustomersCount}`} 
+              <ActiveCus /> 
+            </Paper>
             </Grid>
             <Grid item>
-              <Paper sx={{ height: '90%', p: 2}}>{`Loyalty Program Customers: ${loyaltyProgramCustomersCount}`} <ActiveCus /> </Paper>
+              <Paper sx={{ height: '110%', p: 2}}> <SentimentAnalysis /> </Paper>
+             
             </Grid>
           </Grid>
         </Grid>

@@ -212,7 +212,7 @@ const Nav = () => {
           </ListItem> */}
 
           {/* Logout placeholder */}
-          <div style={{ marginTop: '100%', color: '#808080', fontSize: '12px' }}>
+          <div style={{ marginTop: '70%', color: '#808080', fontSize: '12px' }}>
             
           </div>
           <ListItem button>

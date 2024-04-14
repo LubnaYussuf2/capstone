@@ -49,7 +49,7 @@ const SalesTrend = () => {
   return (
     <div>
         <h2> Sales Trend </h2>
-        <ResponsiveContainer width="50%" height={400}>
+        <ResponsiveContainer width="100%" height={400}>
         <LineChart
             width={500}
             height={300}
@@ -62,7 +62,7 @@ const SalesTrend = () => {
             <XAxis dataKey="month" />
             <YAxis />
             <Tooltip cursor={false}/>
-            <Legend />
+            <Legend verticalAlign="top" height={36}/>
             {Object.keys(data[0] || {}).filter(key => key !== 'month').map((year, index) => (
             <Line type="monotone" dataKey={year} stroke={index === 0 ? "#8884d8" : "#82ca9d"} key={year} />
             ))}
