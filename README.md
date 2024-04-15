@@ -19,6 +19,7 @@ pip3 install scikit-learn
 pip3 install pandas
 pip3 install matplotlib
 pip3 install flask-socketio
+pip3 install openai
 
 
 # win: 
@@ -33,3 +34,4 @@ npm install @mui/icons-material
 npm install react-chartjs-2 chart.js
 npm install recharts
 npm install socket.io-client
+npm install firebase

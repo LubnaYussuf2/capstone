@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
-import Customer from './Customer';
-import ActiveCus from './ActiveCus';
-import SentimentAnalysis from '../SentimentAnalysis';
+import Customer from './Customers/Customer';
+import ActiveCus from './Customers/ActiveCus';
 
 function Customers() {
 
@@ -34,12 +33,11 @@ function Customers() {
     }, []);
 
   return (
-    <div style={{ marginLeft: '250px', backgroundColor: "#f8f7fa", flex: 0}}> 
-    {/* #faf6fa */}
+    <div style={{ marginLeft: '250px' }}>
       <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
-            Customers
+            This is try 1
           </Typography>
 
           <Stack direction="row" spacing={0} alignItems="center">
@@ -67,7 +65,7 @@ function Customers() {
         </Toolbar>
       </AppBar>
 
-      <div style={{}}>
+      <div style={{ }}>
         <Grid container spacing={4} sx={{ paddingTop: '20px' }}>
           {/* Left side */}
           <Grid item>
@@ -76,18 +74,16 @@ function Customers() {
           {/* Right side */}
           <Grid item xs={4} container direction="column" spacing={2}>
             <Grid item>
-            <Paper sx={{ height: '90%', p: 2}}>{`Total Customers: ${totalCustomers}`} <br></br> 
-              {`Loyalty Program Customers: ${loyaltyProgramCustomersCount}`} 
-              <ActiveCus /> 
-            </Paper>
+            <Paper sx={{ height: '90%', p: 2}}>{`Total Customers: ${totalCustomers}`}</Paper>
             </Grid>
             <Grid item>
-              <Paper sx={{ height: '110%', p: 2}}> <SentimentAnalysis /> </Paper>
-             
+              <Paper sx={{ height: '90%', p: 2}}>{`Loyalty Program Customers: ${loyaltyProgramCustomersCount}`} <ActiveCus /> </Paper>
             </Grid>
           </Grid>
         </Grid>
       </div>
+
+     
       
     </div>
   )

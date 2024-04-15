@@ -110,15 +110,11 @@ const Customer = () => {
                 console.log(data);
                 console.log("i worked")
                  // Navigate to CustomerProfile component with the customer's ID
-                navigate(`/customer/${customerId}`);
-            })
+                 navigate(`/customers/${customerId}`);
+                })
             .catch(error => console.error("Error fetching customer data:", error));
     };
 
-    // const handleViewCustomer = (customerId) => {
-    //     // Navigate to CustomerProfile component with the customer's ID
-    //     navigate(`/customer/${customerId}`);
-    // };
 
 
     return (
