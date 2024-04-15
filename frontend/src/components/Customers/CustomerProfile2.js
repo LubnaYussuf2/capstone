@@ -7,8 +7,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 // ---------------------------- New Stuff End -------------------------------
 
 
-//Merina, i think i also found dimentions. im lazy to test it out but here is the link to it:
-//https://www.npmjs.com/package/react-dimensions
 
 function CustomerProfile() {
 
@@ -60,7 +58,6 @@ function CustomerProfile() {
               variant="standard"
               sx={{ borderBottom: '1px solid', borderRadius: 0, minWidth: '30ch' }}
             />
-
             <IconButton color="disabled" aria-label="filter" sx={{ mr: 5 }}>
               <FilterListIcon />
             </IconButton>

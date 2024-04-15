@@ -34,11 +34,11 @@ from controller.data import get_data_col
 from controller.packageList import get_package
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/tumaalshirazi/Documents/Lubna/Winter2024/Capstone2024/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
 
 #authentication
 
@@ -46,9 +46,10 @@ CORS(app)  # Enable CORS for all routes
 
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("/Users/tumaalshirazi/Documents/Lubna/Winter2024/Capstone2024/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
@@ -68,8 +69,6 @@ capstone = db['capstone']
 reviews = db['reviews']
 package = db['package']
 customers = db['customer']
-
-# retrieving profiles collection and passing to rfm analysis function
 profiles = db['profiles']
 
 
@@ -131,6 +130,9 @@ def update_clusters_for_new_profile(change):
     except Exception as e:
         logging.error("Error updating MongoDB document", exc_info=True)
 
+
+
+#------------------------------
 
 # test flask
 @app.route('/')
