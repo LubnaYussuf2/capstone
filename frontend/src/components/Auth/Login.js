@@ -14,14 +14,32 @@ const Login = () => {
     event.preventDefault();
 
     try {
+      // Simulate login
       await signInWithEmailAndPassword(auth, email, password);
-     // setShowVerification(true); // Show verification form after successful login REMOVE IT IN BEGINNING
-     if (!showVerification) {
-      window.location.href = '/';
-    }
+      setShowVerification(false); // Show verification form after successful login
+      if (!showVerification) {
+        window.location.href = '/';
+      }
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('Invalid email or password');
+    }
+  };
+
+  const handleVerificationSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      // Simulate verifying verification code
+      console.log('Verifying verification code...');
+      if (verificationCode === '0819') {
+        console.log('Verification code verified successfully!');
+        // Redirect to homepage or handle login success in any way you prefer
+        window.location.href = '/';
+      } else {
+        console.log('Invalid verification code!');
+      }
+    } catch (error) {
+      console.error('Error verifying verification code:', error);
     }
   };
 
@@ -53,6 +71,21 @@ const Login = () => {
             </Button>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
+
+          {showVerification && (
+            <form onSubmit={handleVerificationSubmit}>
+              <TextField
+                label="Verification Code"
+                fullWidth
+                margin="normal"
+                value={verificationCode}
+                onChange={(e) => setVerificationCode(e.target.value)}
+              />
+              <Button type="submit" variant="contained" color="primary" fullWidth>
+                Submit Verification Code
+              </Button>
+            </form>
+          )}
         </Paper>
       </Box>
     </Container>

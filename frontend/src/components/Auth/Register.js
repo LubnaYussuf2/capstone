@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { Box, Button, Container, Paper, TextField, Typography } from '@mui/material';
-import { auth } from './firebase';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { Box, Button, Container, LinearProgress, Paper, TextField, Typography } from '@mui/material';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { doc, setDoc, collection} from 'firebase/firestore';
+import { auth, db } from './firebase';
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [passwordStrength, setPasswordStrength] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-     // await set(); // Save additional user data to Firestore
-      window.location.href = '/'; // Redirect on successful registration
+      //await set(); // Save additional user data to Firestore
+      window.location.href = '/login'; // Redirect on successful registration
     } catch (error) {
       console.error('Error during registration:', error);
       setErrorMessage('Failed to register. Please try again.');
@@ -76,11 +77,28 @@ const Register = () => {
               margin="normal"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                checkPasswordStrength(e.target.value);
+              }}
             />
-            <Button type="submit" variant="contained" color="primary" fullWidth>
-              Register
-            </Button>
+            <Box mt={2}>
+              <LinearProgress
+                variant="determinate"
+                value={passwordStrength}
+              />
+            </Box>
+            <Box mt={2}>
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                fullWidth
+                sx={{ backgroundColor: '#ac90ca' }}
+              >
+                Register
+              </Button>
+            </Box>
             {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
           </form>
         </Paper>
