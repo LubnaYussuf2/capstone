@@ -37,6 +37,7 @@ def get_one_customer(customer_id):
     customer = get_one_customer_data(customer_id)
 
     if customer:
+        # customer['_id'] = str(customer['_id'])
         customer_data = {
             "id": customer.get("Tourist_ID"),
             "name": customer.get("name"),
@@ -46,7 +47,12 @@ def get_one_customer(customer_id):
             "phoneno": customer.get("phone-number"),
             "origin": customer.get("arrivals_by_region"),
             "frequency": customer.get("Frequency_of_Travel"),
-            "visits": customer.get("Num_of_Visits")
+            "visits": customer.get("Num_of_Visits"),
+            "occupation": customer.get("occupation"),
+            "income": customer.get("Income_USD"),
+            "hobby": customer.get("Hobby"),
+            "review": customer.get("review"),
+            "packages": customer.get("packages")      
         }
 
         print("from controller")
