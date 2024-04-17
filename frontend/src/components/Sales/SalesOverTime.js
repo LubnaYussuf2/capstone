@@ -68,7 +68,7 @@ function SalesOverTime() {
       data: {
         labels: months,
         datasets: [{
-          label: 'Total Profit Over Time',
+          label: 'Monthly Profit',
           data: totalProfits,
           borderColor: '#9f86c0',
           borderWidth: 1

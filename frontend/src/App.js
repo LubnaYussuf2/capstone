@@ -9,9 +9,12 @@ import Campaigns from './components/Campaigns/Campaigns';
 import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
-import Tasks from './components/Tasks/tasks'; // Import your tasks component
+import Tasks from './components/Tasks/tasks'; 
 import CustomerProfile from './components/Customers/CustomerProfile';
 import MultiFactorAuthentication from './components/Auth/mfa'; // Import the MFA component
+
+
+
 
 
 function App() {
@@ -33,7 +36,7 @@ function App() {
 const ProtectedRoutes = () => {
   
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', backgroundColor: '#f5f5fc'  }}>
       <Nav />
       <div style={{ flex: 1, padding: '20px' }}>
         <Routes>

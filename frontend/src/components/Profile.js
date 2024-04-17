@@ -34,10 +34,15 @@ function Profile() {
         <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
             Welcome, {userName}
         </Typography>
-        <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
+        <Avatar alt="User Avatar" />
        
       </Toolbar>
     </AppBar>
+
+    <img src='../public/workinprogress.pn' alt="Logo" style={{ width: '100px', height: '100px', marginTop: '50px' }} />
+
+<h1 style={{ fontSize: '36px', marginTop: '20px' }}>Work in Progress</h1>
+
 
     <h2>Main Content</h2>
 

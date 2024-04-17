@@ -8,11 +8,11 @@ const Nav = () => {
 
   return (
     <nav style={{ width: '250px', borderRight: '1px solid #ccc', height: '100vh', position: 'fixed'  }}>
-      <AppBar position="static" sx={{ width: '250px', backgroundColor: '#fff', boxShadow: 'none' }}>
+      <AppBar position="static" sx={{ width: '250px', backgroundColor: '#fff', height: '100vh', boxShadow: 'none' }}>
         <Toolbar sx={{ marginTop: '20px' }}>
           {/* Logo placeholder */}
           <Typography variant="h6" noWrap>
-            <img src={process.env.PUBLIC_URL + '/logo2.png'} alt="Logo" style={{ width: '80%' }} />
+            <img src={process.env.PUBLIC_URL + '/logo4.png'} alt="Logo" style={{ width: '100%' }} />
           </Typography>
         </Toolbar>
         <List sx={{ margin: 0, padding: 0, marginTop: 2 }}>
@@ -191,40 +191,6 @@ const Nav = () => {
             </ListItemIcon>
             <ListItemText primary="Enable MFA" sx={{ color: '#001a4d' }} />
           </ListItem>
-
-          {/* <ListItem
-            button
-            component={Link}
-            to="/profile"
-            selected={location.pathname === '/profile'}
-          >
-            <ListItemIcon>
-              <PersonIcon />
-            </ListItemIcon>
-            <ListItemText primary="Profile" />
-          </ListItem>
-          <ListItem
-            button
-            component={Link}
-            to="/settings"
-            selected={location.pathname === '/settings'}
-          >
-            <ListItemIcon>
-              <SettingsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Settings" />
-          </ListItem>
-          <ListItem
-            button
-            component={Link}
-            to="/help"
-            selected={location.pathname === '/help'}
-          >
-            <ListItemIcon>
-              <HelpIcon />
-            </ListItemIcon>
-            <ListItemText primary="Help" />
-          </ListItem> */}
 
           {/* Logout placeholder */}
           <div style={{ marginTop: '70%', color: '#808080', fontSize: '12px' }}>

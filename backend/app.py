@@ -9,6 +9,8 @@ import os
 import pickle
 from threading import Thread
 import logging
+import urllib.parse
+
 
 from testsAI.rfm_analysis import perform_rfm_analysis
 from testsAI.training_random_forest import train_and_save_random_forest_model
@@ -34,11 +36,11 @@ from controller.data import get_data_col
 from controller.packageList import get_package
 
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
-
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
+
 
 #authentication
 
@@ -46,37 +48,46 @@ CORS(app)  # Enable CORS for all routes
 
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("\\Users\\Humera-Oryx\\Documents\\GitHub\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 socketio = SocketIO(app, cors_allowed_origins="*")
 
+# Initialize Firebase Admin SDK
+cred = credentials.Certificate("/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
 firebase_db = admin_firestore.client()
 
+username = 'cappy'
+password = 'cappy@2001'
+
+escaped_username = urllib.parse.quote_plus(username)
+escaped_password = urllib.parse.quote_plus(password)
+
+# mongodb_uri = f"mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# mongodb+srv://cappy:cappy@2001@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 # Configure Flask app for MongoDB
 app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+# app.config["MONGO_URI"] = "mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 # print(mongo.db)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
-
 # Connect to MongoDB
 client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+# client = MongoClient('mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['capstone']
 capstone = db['capstone']
 reviews = db['reviews']
 package = db['package']
 customers = db['customer']
-
-# retrieving profiles collection and passing to rfm analysis function
 profiles = db['profiles']
 
 
 logging.basicConfig(level=logging.INFO)
 
 # Load the pre-trained model
-with open('random_forest_model.pkl', 'rb') as file:
+with open('/Users/adnanfaruk/Documents/GitHub/capstone/backend/random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 
@@ -131,6 +142,9 @@ def update_clusters_for_new_profile(change):
     except Exception as e:
         logging.error("Error updating MongoDB document", exc_info=True)
 
+
+
+#------------------------------
 
 # test flask
 @app.route('/')
@@ -291,11 +305,6 @@ def generate_email():     # logic can be added to get the cluster or any other p
     # Return the generated email content as a JSON response, or you could render it in an HTML template
     return render_template('generated_email.html', email_content=email_content)
     # return jsonify({'generated_email': email_content})
-
-
-
-
-
 
 
 

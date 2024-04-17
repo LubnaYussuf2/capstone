@@ -53,9 +53,10 @@ const PopularPackages = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography variant="h5" component="h2">
+        <h2  style={{marginTop:0, marginBottom:0}}>Popular Packages</h2>
+        {/* <Typography variant="h5" component="h2">
           Popular Packages
-        </Typography>
+        </Typography> */}
         <FormControl variant="outlined" size="small">
           <Select
             value={sortOrder}

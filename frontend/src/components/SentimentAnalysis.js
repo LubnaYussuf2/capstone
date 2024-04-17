@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import { Typography } from '@mui/material';
 
 const SentimentAnalysis = () => {
   const [reviewData, setReviewData] = useState([]);
@@ -44,25 +45,6 @@ const SentimentAnalysis = () => {
     }
     return acc;
   }, 0);
-
-
-  // Plugin definition inside the component to access the averageSentimentScore
-  // const centerTextPlugin = {
-  //   id: 'centerTextPlugin',
-  //   afterDraw: (chart) => {
-  //     const ctx = chart.ctx;
-  //     const width = chart.chartArea.right;
-  //     const height = chart.chartArea.bottom;
-  //     ctx.save();
-  //     ctx.font = '20px Arial';
-  //     ctx.fillStyle = 'black';
-  //     ctx.textAlign = 'center';
-  //     ctx.textBaseline = 'middle';
-  //     const text = `${(averageSentimentScore2*100).toFixed(0)}%`;
-  //     ctx.fillText(text, width / 2, height / 2);
-  //     ctx.restore();
-  //   }
-  // };
   
   const chartData = {
     labels: Object.keys(sentimentCounts),
@@ -105,9 +87,10 @@ const SentimentAnalysis = () => {
   };
 
   return (
-    <div style={{ height: '300px', width: '500px' }}>
+    <div style={{ height: '150px', width: '350px' }}>
       {/* {(averageSentimentScore2*100).toFixed(0)}% */}
-      <h2>Sentiment Analysis</h2>
+      {/* <h2></h2> */}
+      <Typography variant="h5" sx={{ pb: 2 , color: "#261c33" }} > Sentiment Analysis </Typography>
       <Doughnut 
         data={chartData} 
         options={options}
@@ -118,3 +101,4 @@ const SentimentAnalysis = () => {
 };
 
 export default SentimentAnalysis;
+// export { averageSentimentScore2 };
