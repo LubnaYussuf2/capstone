@@ -16,7 +16,7 @@ const Login = () => {
     try {
       // Simulate login
       await signInWithEmailAndPassword(auth, email, password);
-      setShowVerification(true); // Show verification form after successful login
+      setShowVerification(false); // Show verification form after successful login
       if (!showVerification) {
         window.location.href = '/';
       }
