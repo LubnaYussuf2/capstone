@@ -9,6 +9,8 @@ import os
 import pickle
 from threading import Thread
 import logging
+import urllib.parse
+
 
 from testsAI.rfm_analysis import perform_rfm_analysis
 from testsAI.training_random_forest import train_and_save_random_forest_model
@@ -55,15 +57,25 @@ firebase_admin.initialize_app(cred)
 # Firestore client
 firebase_db = admin_firestore.client()
 
+username = 'cappy'
+password = 'cappy@2001'
+
+escaped_username = urllib.parse.quote_plus(username)
+escaped_password = urllib.parse.quote_plus(password)
+
+# mongodb_uri = f"mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+# mongodb+srv://cappy:cappy@2001@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+
 # Configure Flask app for MongoDB
-app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+# app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+app.config["MONGO_URI"] = "mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 # print(mongo.db)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
-
 # Connect to MongoDB
-client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+# client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['capstone']
 capstone = db['capstone']
 reviews = db['reviews']
