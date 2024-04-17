@@ -7,10 +7,10 @@ function Campaigns() {
   const userName = "ukoo";
 
   return (
-    <div style={{ marginLeft: '250px' }}>
-    <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
-      <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
+    <div style={{ marginLeft: '250px'}}>
+      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
+        <Toolbar>
+        <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
           Campaign
         </Typography>
 

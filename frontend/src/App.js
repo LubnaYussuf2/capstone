@@ -33,7 +33,7 @@ function App() {
 const ProtectedRoutes = () => {
   
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', backgroundColor: '#f5f5fc'  }}>
       <Nav />
       <div style={{ flex: 1, padding: '20px' }}>
         <Routes>

@@ -35,19 +35,18 @@ function Section2() {
     return (
         <div style={{ }}>
 
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <h3 style={{ marginRight: '10px' }}>Total Customers</h3>
-            <p style={{color:"#009E60"}}>{totalCustomersLastYear}</p>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ marginTop: 0 }}>TOTAL CUSTOMERS</p>  
+            <p style={{marginTop: 0 , marginLeft:110, color:"#009E60"}}>{totalCustomersLastYear}</p>
           </div>
 
-          <div style={{ textAlign: 'center' }}>
-            <h2>{customerData.length}</h2>
+          <div style={{ textAlign: '' }}>
+          <p style={{ fontSize: '24px', marginBottom: '5px', marginTop: 10  }}>{customerData.length}</p>
           </div>
           
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <p style={{ marginRight: '10px', marginBottom: "15px" }}>See Details</p>
-            <img src={process.env.PUBLIC_URL + '/user.png'} alt="Logo" style={{ width: '10%', marginLeft: '10px', marginBottom: "15px"  }} />
-          </div>
+          <div style={{ display: 'flex', alignItems: '', justifyContent: 'space-between' }}>
+            <p style={{ marginRight: '10px', marginBottom: "15px", color: "#5D5FEF", marginTop: 20 }}>See Details</p>
+          </div> 
 
         </div>
       );

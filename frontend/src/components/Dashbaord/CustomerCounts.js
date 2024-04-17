@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Typography } from '@mui/material';
 
 const CustomerCounts = () => {
   const [customerData, setCustomerData] = useState([]);
@@ -38,20 +39,30 @@ const CustomerCounts = () => {
       {
         label: '2022',
         data: data2022,
-        backgroundColor: '#e5d9f2',
+        // backgroundColor: '#82ca9d', 
+        borderColor: '#dabfff',
+        backgroundColor: '#dabfff',
+        borderWidth: 1,
+        borderRadius: 5
+       
       },
       {
         label: '2023',
         data: data2023,
-        backgroundColor: '#9f86c0',
+        // backgroundColor: '#8884d8',  //    '#6f2dbd', '#a663cc', '#b298dc', '#b8d0eb', '#b9faf8'
+        borderColor: '#907ad6',
+        backgroundColor: '#907ad6',
+        borderWidth: 1,
+        borderRadius: 5
       },
     ],
   };
 
   return (
     <div>
-      <h2>Customer Counts</h2>
-      <div style={{ height: '400px', width: '600px', paddingLeft:20 }}>
+      <h2 style={{marginTop:0}}>Customer Counts</h2>
+      {/* <Typography variant="h5" sx={{ pb: 2 , color: "#261c33" }} > Customer Counts </Typography> */}
+      <div style={{ height: '400px', width: '620px', paddingLeft:10 }}>
         <Bar
           data={chartData}
           options={{
@@ -76,7 +87,7 @@ const CustomerCounts = () => {
               },
             },
             barPercentage: 1.0,
-            categoryPercentage: 0.6,
+            categoryPercentage: 0.8,
           }}
         />
       </div>

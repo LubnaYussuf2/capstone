@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
+
 import SalesOverTime from './SalesOverTime';
 import RadarChart from './RadarChart';
 // import SalesTrend from './SalesTrend';
-// import PackagePerformance from './PackagePerformance';
-
+import PackagePerformance from './PackagePerformance';
+import RadarChart2 from './RadarChart2';
+import PPD from './PPD';
 
 function Sales() {
   const userName = "ukoo";
@@ -79,9 +81,9 @@ function Sales() {
 
   return (
     <div style={{ marginLeft: '250px' }}>
-      <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0, color: "black", fontWeight: "bold" }}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
             Sales
           </Typography>
           <Stack direction="row" spacing={0} alignItems="center">
@@ -107,7 +109,11 @@ function Sales() {
 
       {/* <SalesTrend />
       <PackagePerformance /> */}
-      <RadarChart />
+      {/* <RadarChart /> */}
+      
+      {/* <RadarChart2 /> */}
+
+      {/* <PPD /> */}
 
       <Grid container spacing={2} sx={{ padding: '20px' }}>
         {/* Left side */}
@@ -115,42 +121,137 @@ function Sales() {
 
           {/* sales this year */}
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>
-              <div>
+          <Paper sx={{ 
+            height: '150px', 
+            p: 2,
+            // backgroundColor: '#f7f7f9', // Light grey background
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+            borderRadius: '10px', // Rounded corners
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-around' // Improved spacing
+          }}>
+            <div>
+              <p style={{ 
+                marginTop: 0, 
+                marginBottom: 10,
+                fontSize: '16px', // Slightly larger title
+                fontWeight: 'bold', // Bold font for emphasis
+                color: '#333' // Darker color for better readability
+              }}>
+                TOTAL SALES
+              </p>  
+              <p style={{
+                marginTop: 0,
+                color: "#9f94a8", // Stylish gray for the subtitle
+                fontSize: '14px' // Smaller font for the subtitle
+              }}>
+                Last year
+              </p>
 
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <h3 style={{ marginRight: '10px' }}>Total Sales This Year:</h3>
-                  <p style={{ color: "#009E60" }}>+{(totalSalesThisYear / totalSalesLastYear) * 100}%</p>
-                </div>
-
-                <div style={{ textAlign: 'center' }}>
-                  <h2>{totalSalesLastYear}</h2>
-                </div>
+              <div style={{ 
+                textAlign: 'center', 
+                paddingTop: 3 
+              }}>
+                <p style={{ 
+                  fontSize: '28px', 
+                  marginBottom: '5px', 
+                  marginTop: 10,
+                  fontWeight: '600', // Semi-bold for the sales number
+                  color: '#4a4a4a' // Dark gray for contrast
+                }}>
+                  {totalSalesLastYear}k
+                </p>
               </div>
-            </Paper>
+
+              <p style={{ 
+                color: "#009E60", // Green color for positive change
+                marginLeft: 160, // Align to the right
+                paddingRight: 20, // Right padding for spacing
+                fontSize: '16px', // Larger font for visibility
+                fontWeight: 'bold' // Bold for emphasis
+              }}>
+                +{((totalSalesThisYear / totalSalesLastYear) * 100).toFixed(0)}%
+              </p>
+            </div>
+          </Paper>
+
           </Grid>
 
           {/* Revenue this month */}
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>
+            {/* <Paper sx={{ height: '150px', p: 2 }}>
               <div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <h3 style={{ marginRight: '10px' }}>Revenue</h3>
-                  {/* <p style={{ color: "#009E60" }}>+{(thisYearRevenue / lastYearRevenue) * 100}%</p> */}
                   <p style={{ color: "#009E60" }}>+{((thisYearRevenue / lastYearRevenue) * 100).toFixed(0)}%</p>
-
                 </div>
 
                 <div style={{ textAlign: 'center' }}>
                   <h2>{thisYearRevenue}</h2>
                 </div>
+                
+              </div>
+            </Paper> */}
+            <Paper sx={{ 
+              height: '150px', 
+              p: 2,
+              // backgroundColor: '#f7f7f9', // Light grey background
+              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+              borderRadius: '10px', // Rounded corners
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-around' // Improved spacing
+            }}>
+              <div>
+                <p style={{ 
+                  marginTop: 0, 
+                  marginBottom: 10,
+                  fontSize: '16px', // Slightly larger title
+                  fontWeight: 'bold', // Bold font for emphasis
+                  color: '#333' // Darker color for better readability
+                }}>
+                  REVENUE
+                </p>  
+                <p style={{
+                  marginTop: 0,
+                  color: "#9f94a8", // Stylish gray for the subtitle
+                  fontSize: '14px' // Smaller font for the subtitle
+                }}>
+                  Last year
+                </p>
+
+                <div style={{ 
+                  textAlign: 'center', 
+                  paddingTop: 3 
+                }}>
+                  <p style={{ 
+                    fontSize: '28px', 
+                    marginBottom: '5px', 
+                    marginTop: 10,
+                    fontWeight: '600', // Semi-bold for the sales number
+                    color: '#4a4a4a' // Dark gray for contrast
+                  }}>
+                    {thisYearRevenue}
+                  </p>
+                </div>
+
+                <p style={{ 
+                  color: "#009E60", // Green color for positive change
+                  marginLeft: 160, // Align to the right
+                  paddingRight: 20, // Right padding for spacing
+                  fontSize: '16px', // Larger font for visibility
+                  fontWeight: 'bold' // Bold for emphasis
+                }}>
+                  +{((thisYearRevenue / lastYearRevenue) * 100).toFixed(0)}%
+                </p>
               </div>
             </Paper>
           </Grid>
 
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>
+            {/* <Paper sx={{ height: '150px', p: 2 }}>
               <div>
 
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -162,6 +263,61 @@ function Sales() {
                   <h2>{thisYearProfit}</h2>
                 </div>
               </div>
+            </Paper> */}
+
+            <Paper sx={{ 
+              height: '150px', 
+              p: 2,
+              // backgroundColor: '#f7f7f9', // Light grey background
+              boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+              borderRadius: '10px', // Rounded corners
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-around' // Improved spacing
+            }}>
+              <div>
+                <p style={{ 
+                  marginTop: 0, 
+                  marginBottom: 10,
+                  fontSize: '16px', // Slightly larger title
+                  fontWeight: 'bold', // Bold font for emphasis
+                  color: '#333' // Darker color for better readability
+                }}>
+                  PROFIT
+                </p>  
+                <p style={{
+                  marginTop: 0,
+                  color: "#9f94a8", // Stylish gray for the subtitle
+                  fontSize: '14px' // Smaller font for the subtitle
+                }}>
+                  Last year
+                </p>
+
+                <div style={{ 
+                  textAlign: 'center', 
+                  paddingTop: 3 
+                }}>
+                  <p style={{ 
+                    fontSize: '28px', 
+                    marginBottom: '5px', 
+                    marginTop: 10,
+                    fontWeight: '600', // Semi-bold for the sales number
+                    color: '#4a4a4a' // Dark gray for contrast
+                  }}>
+                    {thisYearProfit}
+                  </p>
+                </div>
+
+                <p style={{ 
+                  color: "#009E60", // Green color for positive change
+                  marginLeft: 160, // Align to the right
+                  paddingRight: 20, // Right padding for spacing
+                  fontSize: '16px', // Larger font for visibility
+                  fontWeight: 'bold' // Bold for emphasis
+                }}>
+                  +{((thisYearProfit / lastYearProfit) * 100).toFixed(0)}%
+                </p>
+              </div>
             </Paper>
           </Grid>
           <Grid item xs={12}>
@@ -170,12 +326,23 @@ function Sales() {
         </Grid>
 
         {/* Right side */}
-        <Grid item container spacing={1} xs={5} >
+        <Grid item container spacing={4} xs={5} >
           <Grid item xs={12}>
-            <Paper sx={{ height: '200px', p: 2 }}>Section 5</Paper>
+            <Paper sx={{ height: '150px', p: 2, boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', // Soft shadow for depth
+            borderRadius: '10px', }}> 
+            <p style={{ 
+                  marginTop: 0, 
+                  marginBottom: 10,
+                  fontSize: '16px', // Slightly larger title
+                  fontWeight: 'bold', // Bold font for emphasis
+                  color: '#333' // Darker color for better readability
+                }}>
+                  PRICE PREFERENCES
+                </p>  
+             <PPD /> </Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ height: '510px', p: 2, pb: 5 }}><RadarChart /></Paper>
+            <Paper sx={{ height: '500px', p: 2, pb:5}}><RadarChart2 /></Paper>
           </Grid>
         </Grid>
       </Grid>
