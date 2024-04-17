@@ -15,21 +15,21 @@ const Register = () => {
     event.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      await set(); // Save additional user data to Firestore
-      window.location.href = '/'; // Redirect on successful registration
+      //await set(); // Save additional user data to Firestore
+      window.location.href = '/login'; // Redirect on successful registration
     } catch (error) {
       console.error('Error during registration:', error);
       setErrorMessage('Failed to register. Please try again.');
     }
   };
 
-  const collectionRef = collection(db, 'mfa')
-  const set = async () => {
-    const userDocRef = setDoc(db, 'mfa', "users");
-    await setDoc(userDocRef, { name, email });
-    console.log('User data submitted to Firestore');
+  // const collectionRef = collection(db, 'mfa')
+  // const set = async () => {
+  //   const userDocRef = setDoc(db, 'mfa', "users");
+  //   await setDoc(userDocRef, { name, email });
+  //   console.log('User data submitted to Firestore');
   
-  };
+  // };
 
   const checkPasswordStrength = (password) => {
     let strength = 0;

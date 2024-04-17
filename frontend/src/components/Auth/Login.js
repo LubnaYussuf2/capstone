@@ -7,7 +7,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
-  const [showVerification, setShowVerification] = useState(false);
+  const [showVerification, setShowVerification] = useState(false); // Initially set to false
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (event) => {
@@ -16,7 +16,10 @@ const Login = () => {
     try {
       // Simulate login
       await signInWithEmailAndPassword(auth, email, password);
-      // Simulate receiving verification code
+      setShowVerification(true); // Show verification form after successful login
+      if (!showVerification) {
+        window.location.href = '/';
+      }
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('Invalid email or password');
