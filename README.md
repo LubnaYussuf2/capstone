@@ -20,7 +20,8 @@ pip3 install pandas
 pip3 install matplotlib
 pip3 install flask-socketio
 pip3 install openai
-
+# for notification
+pip3 install python-dotenv
 
 # win: 
 <!-- same as mac but pip instead of pip3 -->

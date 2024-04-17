@@ -7,8 +7,13 @@ import SentimentAnalysis from '../SentimentAnalysis';
 import CusGender from './CusGender';
 import Age from './Age';
 import GeoChart from './GeoChart';
+import Navbar from '../Navbar/Navbar.js';
+import io from 'socket.io-client';
 
-function Customers() {
+const socket = io('http://localhost:5000');
+
+
+function Customers({ notifications, addNotification, clearNotifications }) {
 
     // user's name 
   const userName = "ukoo";
@@ -39,37 +44,13 @@ function Customers() {
   return (
     <div style={{ marginLeft: '250px', backgroundColor: "#f5f5fc", flex: 0, height: '100%'}}> 
     {/* #faf6fa */}
-    <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
-        <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
-            Customers
-          </Typography>
-
-          <Stack direction="row" spacing={0} alignItems="center">
-            <TextField
-              placeholder="Search..."
-              size="medium"
-              variant="standard"
-              sx={{ borderBottom: '1px solid', borderRadius: 0, minWidth: '30ch' }}
-            />
-            <IconButton color="disabled" aria-label="filter" sx={{ mr: 5 }}>
-              <FilterListIcon />
-            </IconButton>
-          </Stack>
-
-
-          <IconButton color="disabled" aria-label="notifications">
-            <NotificationsIcon />
-          </IconButton>
-
-          <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
-              Welcome, {userName}
-          </Typography>
-          <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
-         
-        </Toolbar>
-      </AppBar>
-
+    <Navbar
+        userName={userName}
+        notifications={notifications}
+        currentPage="Customers"
+        addNotification={addNotification}
+        clearNotifications={clearNotifications}
+      />
 
       {/* <GeoChart /> */}
 

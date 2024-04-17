@@ -8,50 +8,36 @@ import CusSatisfactionHalfDonut from './CusSatisfactionHalfDonut';
 import Section1 from './Section1';
 import Section2 from './Section2';
 import Section4 from './Section4';
+import Navbar from '../Navbar/Navbar.js';
+import io from 'socket.io-client';
 
+const socket = io('http://localhost:5000');
 
-function Home() {
+function Home({ notifications, addNotification, clearNotifications }) {
 
   // user's name 
   const userName = "ukoo";
+  useEffect(() => {
+    socket.on('cluster_update', (data) => {
+      addNotification(`Cluster updated for Tourist_ID: ${data.Tourist_ID}`);
+    });
+
+    return () => {
+      socket.off('cluster_update');
+    };
+  }, [addNotification]);
 
 
   return (
     <div style={{ marginLeft: '250px' }}>
     {/* header */}
-      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
-        <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
-            Dashboard
-          </Typography>
-
-          <Stack direction="row" spacing={0} alignItems="center">
-            <TextField
-              placeholder="Search..."
-              size="medium"
-              variant="standard"
-              sx={{ borderBottom: '1px solid', borderRadius: 0, minWidth: '30ch' }}
-            />
-            <IconButton color="disabled" aria-label="filter" sx={{ mr: 5 }}>
-              <FilterListIcon />
-            </IconButton>
-          </Stack>
-
-
-          <IconButton color="disabled" aria-label="notifications">
-            <NotificationsIcon />
-          </IconButton>
-
-          <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
-              Welcome, {userName}
-          </Typography>
-          <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
-         
-        </Toolbar>
-      </AppBar>
-
-  
-
+    <Navbar
+        userName={userName}
+        notifications={notifications}
+        currentPage="Dashboard"
+        addNotification={addNotification}
+        clearNotifications={clearNotifications}
+      />
 
       {/* Top section */}
       <Grid container spacing={2} sx={{ padding: '20px', paddingBottom: "5px" }}>

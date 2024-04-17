@@ -9,14 +9,14 @@ import os
 import pickle
 from threading import Thread
 import logging
-import urllib.parse
-
-
+from bson import ObjectId
 from testsAI.rfm_analysis import perform_rfm_analysis
 from testsAI.training_random_forest import train_and_save_random_forest_model
 from testsAI.targeted_marketing import perform_targetted_marketing_and_update_mongodb
 from testsAI import cs_test
 from testsAI.ai_email import generate_email_custom
+from dotenv import load_dotenv
+from datetime import datetime
 
 # socket I/O
 
@@ -35,8 +35,10 @@ from controller.data import get_data_col
 
 from controller.packageList import get_package
 
+load_dotenv()
+
 # Set environment variable for Google credentials
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "C:\\Users\\Lenovo\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json"
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
@@ -51,43 +53,36 @@ CORS(app)  # Enable CORS for all routes
 socketio = SocketIO(app, cors_allowed_origins="*")
 
 # Initialize Firebase Admin SDK
-cred = credentials.Certificate("/Users/adnanfaruk/Documents/GitHub/capstone/backend/capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
+cred = credentials.Certificate("C:\\Users\\Lenovo\\capstone\\backend\\capstone2024-2c97b-firebase-adminsdk-xcv7f-0206a3ac43.json")
 firebase_admin.initialize_app(cred)
 
 # Firestore client
 firebase_db = admin_firestore.client()
 
-username = 'cappy'
-password = 'cappy@2001'
-
-escaped_username = urllib.parse.quote_plus(username)
-escaped_password = urllib.parse.quote_plus(password)
-
-# mongodb_uri = f"mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-# mongodb+srv://cappy:cappy@2001@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-
 # Configure Flask app for MongoDB
 app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
-# app.config["MONGO_URI"] = "mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 # print(mongo.db)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
+
 # Connect to MongoDB
 client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
-# client = MongoClient('mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['capstone']
 capstone = db['capstone']
 reviews = db['reviews']
 package = db['package']
 customers = db['customer']
 profiles = db['profiles']
+collection = db['data']
+collection = db['customer']
+notifications_collection = db['notifications']
 
 
 logging.basicConfig(level=logging.INFO)
 
 # Load the pre-trained model
-with open('/Users/adnanfaruk/Documents/GitHub/capstone/backend/random_forest_model.pkl', 'rb') as file:
+with open('C:\\Users\\Lenovo\\capstone\\backend\\random_forest_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 
@@ -132,12 +127,24 @@ def update_clusters_for_new_profile(change):
         profiles.update_one({"Tourist_ID": new_tourist_id}, {"$set": {"cluster": predicted_cluster}})
         customers.update_one({"Tourist_ID": new_tourist_id}, {"$set": {"cluster": predicted_cluster}})
         
-        # send message to frontend that cluster was updated
+        # Save notification to MongoDB
+        notification_data = {
+            'timestamp': datetime.now(),
+            'message': f"Cluster updated for Tourist_ID: {new_tourist_id}, New Cluster: {predicted_cluster}",
+            'status': 'unread'  # Add this line
+
+        }
+        notifications_collection.insert_one(notification_data)
+        print("Notification saved to MongoDB:", notification_data)
+
+        
+        # Send message to frontend that cluster was updated
         socketio.emit('cluster_update', {'Tourist_ID': new_tourist_id})
+        print("Cluster update message sent to frontend")
         socketio.emit('new_task', {
-                        'Tourist_ID': new_tourist_id,
-                        'cluster': predicted_cluster,
-                    })
+            'Tourist_ID': new_tourist_id,
+            'cluster': predicted_cluster,
+        })
         
     except Exception as e:
         logging.error("Error updating MongoDB document", exc_info=True)
@@ -150,6 +157,33 @@ def update_clusters_for_new_profile(change):
 @app.route('/')
 def home():
     return 'Hello, World!'
+
+@app.route('/notifications')
+def get_notifications():
+    notifications_cursor = mongo.db.notifications.find()  # Assuming your collection is named 'notifications'
+    notifications = []
+    for notification in notifications_cursor:
+        notification['_id'] = str(notification['_id'])  # Serialize ObjectId to string
+        notifications.append(notification)
+    return jsonify(notifications)
+
+@app.route('/notifications', methods=['DELETE'])
+def delete_all_notifications():
+    result = notifications_collection.delete_many({})
+    return jsonify({'message': f'{result.deleted_count} notifications deleted successfully'})
+
+@app.route('/notification/read/<notification_id>', methods=['POST'])
+def mark_notification_as_read(notification_id):
+    result = notifications_collection.find_one_and_update(
+        {'_id': ObjectId(notification_id), 'status': 'unread'},  # Check if notification is unread
+        {'$set': {'status': 'read'}}
+    )
+    if result:
+        return jsonify({'message': 'Notification marked as read'}), 200
+    else:
+        # Notification is already read or not found, handle gracefully
+        return jsonify({'message': 'Notification already read or not found'}), 200  # Consider using 200 to indicate successful handling
+
     
 #auth
 # @app.route('/')
@@ -162,6 +196,62 @@ def home():
 @app.route('/customers')
 def customers_data():
     return get_all_customers()
+
+
+# Define a constant for the number of items per page
+ITEMS_PER_PAGE = 5
+
+@app.route('/fetchdata', methods=['GET'])
+def get_data():
+    page = request.args.get('page', 1, type=int)
+    total_items = collection.count_documents({})
+    
+    # Calculate the total pages based on the total number of items and items per page
+    total_pages = (total_items + ITEMS_PER_PAGE - 1) // ITEMS_PER_PAGE
+    
+    # Calculate the starting and ending indexes for pagination
+    start_index = (page - 1) * ITEMS_PER_PAGE
+    end_index = min(start_index + ITEMS_PER_PAGE, total_items)
+
+    # Fetch data for the current page
+    data = []
+    for document in collection.find().skip(start_index).limit(ITEMS_PER_PAGE):
+        document['_id'] = str(document['_id'])
+        data.append(document)
+
+    return jsonify({
+        'data': data,
+        'total_pages': total_pages
+    })
+
+
+ITEMS_PER_PAGE = 5  # Number of items per page for pagination
+
+@app.route('/fetchcustomer', methods=['GET'])
+def get_customer():
+    page = request.args.get('page', 1, type=int)
+    total_items = collection.count_documents({})
+
+    # Calculate the total pages based on the total number of items and items per page
+    total_pages = (total_items + ITEMS_PER_PAGE - 1) // ITEMS_PER_PAGE
+
+    # Calculate the starting and ending indexes for pagination
+    start_index = (page - 1) * ITEMS_PER_PAGE
+    end_index = min(start_index + ITEMS_PER_PAGE, total_items)
+
+    # Fetch data for the current page
+    data = []
+    
+    # Modify the query to sort data in descending order based on some field, for example, "_id"
+    for document in collection.find().sort('_id', -1).skip(start_index).limit(ITEMS_PER_PAGE):
+        document['_id'] = str(document['_id'])
+        data.append(document)
+
+    return jsonify({
+        'data': data,
+        'total_pages': total_pages
+    })
+
 
 
 # Customer profile screen
@@ -285,37 +375,6 @@ def cs_test_route():
     # Render the template with the analysis results passed as context
     return render_template('cs_test_output.html', count_table=count_table, html_plot=html_plot, satisfaction_percentage=satisfaction_percentage)
 
-
-# new addition - AI emailing 
-
-@app.route('/generate_email')
-def generate_email():     # logic can be added to get the cluster or any other parameters needed for the email generation
-
-    cluster = "Churning or At Risk" # this will be option selected from teh frontend
-    email_prompt = f"""
-    Generate a marketing email for a tourist belonging to {cluster} as per the data and previous experiences.
-    The email should address concerns of the customer, highlight the unique benefits of our services,
-    personalized travel plans, and exclusive offers for loyal customers. 
-    The tone should be professional warm, inviting, and reassuring, emphasizing our commitment to providing unforgettable travel experiences.
-    """
-    
-    # Generate the email content
-    email_content = generate_email_custom(email_prompt)
-    
-    # Return the generated email content as a JSON response, or you could render it in an HTML template
-    return render_template('generated_email.html', email_content=email_content)
-    # return jsonify({'generated_email': email_content})
-
-
-
-# if __name__ == '__main__':
-#     # app = create_app()
-#     app.run('127.0.0.1', 5000)
-
-#Merina, this is very important. Pls, leave her alone or I'll come for you.
-# if __name__ == "__main__":
-#     run_change_stream_in_background()
-#     app.run(debug=True, threaded=True)
 
 if __name__ == "__main__":
     run_change_stream_in_background()

@@ -8,8 +8,12 @@ import RadarChart from './RadarChart';
 import PackagePerformance from './PackagePerformance';
 import RadarChart2 from './RadarChart2';
 import PPD from './PPD';
+import SalesOverTime from './SalesOverTime';
+import io from 'socket.io-client';
 
-function Sales() {
+const socket = io('http://localhost:5000');
+
+function Sales({ notifications, addNotification, clearNotifications }) {
   const userName = "ukoo";
   const [totalSalesLastYear, setTotalSalesLastYear] = useState(0);
   // const [elastLastYear, setelastLastYear] = useState(0);
@@ -20,6 +24,16 @@ function Sales() {
   const [lastYearRevenue, setLastYearRevenue] = useState(0)
   const [thisYearProfit, setThisYearProfit] = useState(0)
   const [lastYearProfit, setLastYearProfit] = useState(0)
+
+  useEffect(() => {
+    socket.on('cluster_update', (data) => {
+      addNotification(`Cluster updated for Tourist_ID: ${data.Tourist_ID}`);
+    });
+
+    return () => {
+      socket.off('cluster_update');
+    };
+  }, [addNotification]);
 
 
   useEffect(() => {
@@ -81,31 +95,13 @@ function Sales() {
 
   return (
     <div style={{ marginLeft: '250px' }}>
-      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
-        <Toolbar>
-          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
-            Sales
-          </Typography>
-          <Stack direction="row" spacing={0} alignItems="center">
-            <TextField
-              placeholder="Search..."
-              size="medium"
-              variant="standard"
-              sx={{ borderBottom: '1px solid', borderRadius: 0, minWidth: '30ch' }}
-            />
-            <IconButton color="disabled" aria-label="filter" sx={{ mr: 5 }}>
-              <FilterListIcon />
-            </IconButton>
-          </Stack>
-          <IconButton color="disabled" aria-label="notifications">
-            <NotificationsIcon />
-          </IconButton>
-          <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
-            Welcome, {userName}
-          </Typography>
-          <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
-        </Toolbar>
-      </AppBar>
+      <Navbar
+        userName={userName}
+        notifications={notifications}
+        currentPage="Sales"
+        addNotification={addNotification}
+        clearNotifications={clearNotifications}
+      />
 
       {/* <SalesTrend />
       <PackagePerformance /> */}
