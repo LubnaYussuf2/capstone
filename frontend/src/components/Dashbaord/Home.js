@@ -4,6 +4,11 @@ import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as
 import CustomerCounts from './CustomerCounts';
 import SalesTrend from '../Sales/SalesTrend';
 import PopularPackages from './PopularPackages';
+import Section1 from './Section1';
+import Section2 from './Section2';
+import Section3 from './Section3';
+import Section4 from './Section4';
+
 
 function Home() {
 
@@ -49,16 +54,16 @@ function Home() {
       {/* Top section */}
       <Grid container spacing={2} sx={{ padding: '20px', paddingBottom: "5px" }}>
         <Grid item xs={3}>
-          <Paper sx={{ height: '120px', p: 2 }}>Section 1</Paper>
+          <Paper sx={{ height: '150px', p: 2 }}><Section1 /></Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper sx={{ height: '120px', p: 2 }}>Section 2</Paper>
+          <Paper sx={{ height: '150px', p: 2 }}><Section2 /></Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper sx={{ height: '120px', p: 2 }}>Section 2</Paper>
+          <Paper sx={{ height: '150px', p: 2 }}>Section 3</Paper>
         </Grid>
         <Grid item xs={3}>
-          <Paper sx={{ height: '120px', p: 2 }}>Section 4</Paper>
+          <Paper sx={{ height: '150px', p: 2 }}><Section4 /></Paper>
         </Grid>
       </Grid>
 

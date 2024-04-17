@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Avatar, TextField, Stack, Grid, Paper } from '@mui/material';
 import { Notifications as NotificationsIcon, FilterList as FilterListIcon } from '@mui/icons-material';
-
-// ---------------------------- New Stuff Start -------------------------------
 import { useParams, useNavigate } from 'react-router-dom'; 
-// ---------------------------- New Stuff End -------------------------------
 
 
 //Merina, i think i also found dimentions. im lazy to test it out but here is the link to it:
@@ -15,15 +12,14 @@ function CustomerProfile() {
     // user's name 
   const userName = "ukoo";
 
-// ---------------------------- New Stuff Start -------------------------------
   const [customer, setCustomer] = useState();
+  const [packages, setPackages] = useState()
   const { id } = useParams(); // This grabs the ID from the URL
   const navigate = useNavigate();
 
 
 
     useEffect(() => {
-        // Adjust the URL to match your API endpoint
         fetch(`http://127.0.0.1:5000/customers/${id}`)
             .then(response => response.json())
             .then(data => {
@@ -32,6 +28,7 @@ function CustomerProfile() {
                 console.log(data)
             })
             .catch(error => console.error("Error:", error));
+
     }, [id]); // Dependency array to re-fetch if ID changes   
 
     
@@ -39,8 +36,10 @@ function CustomerProfile() {
         navigate(`/customers`);
     };
 
+    
 
-    // ---------------------------- New Stuff End -------------------------------
+
+
 
 
   return (
@@ -88,6 +87,56 @@ function CustomerProfile() {
             <h1>Do i work?</h1>
 
             <button onClick={()=>{goBack()}}>Go Back</button>
+
+            <h3>Name</h3>
+            <p>{customer?.name}</p>
+            <hr/>
+            <br/>
+
+            <h3>Age</h3>
+            <p>{customer?.age}</p>
+            <hr/>
+            <br/>
+
+            <h3>Gender</h3>
+            <p>{customer?.gender}</p>
+            <hr/>
+            <br/>
+
+            <h3>Origin</h3>
+            <p>{customer?.origin}</p>
+            <hr/>
+            <br/>
+
+            <h3>Occupation</h3>
+            <p>{customer?.occupation}</p>
+            <hr/>
+            <br/>
+
+            <h3>Income</h3>
+            <p>{customer?.income}</p>
+            <hr/>
+            <br/>
+
+            <h3>Interest</h3>
+            <p>{customer?.hobby}</p>
+            <hr/>
+            <br/>
+
+            <h3>Previous Purchases/Purchase History</h3>
+            <p>{customer?.packages.map(item => item.Package).join(', ')}</p>
+            <hr/>
+            <br/>
+
+            <h3>Review</h3>
+            <p>{customer?.review['Review']}</p>
+            <hr/>
+            <br/>
+
+            <h3>Avatar</h3>
+            <p>{customer?.occupation}</p>
+            <hr/>
+            <br/>
 
         </div>
 

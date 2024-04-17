@@ -11,9 +11,8 @@ import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import Tasks from './components/Tasks/tasks'; 
 import CustomerProfile from './components/Customers/CustomerProfile';
-import CustomerProfile2 from './components/Customers/CustomerProfile2';
-import Try1 from './components/Try1';
-import Try2 from './components/Try2';
+
+
 
 
 function App() {
@@ -46,8 +45,6 @@ const ProtectedRoutes = () => {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/try1" element={<Try1 />} />
-          <Route path="/try2" element={<Try2 />} />
           {/* Add other routes here */}
         </Routes>
       </div>
