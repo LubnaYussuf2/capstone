@@ -11,6 +11,8 @@ import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import Tasks from './components/Tasks/tasks'; // Import your tasks component
 import CustomerProfile from './components/Customers/CustomerProfile';
+import MultiFactorAuthentication from './components/Auth/mfa'; // Import the MFA component
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        
           {/* <Route path="/logout" element={<Logout />} /> */}
 
         <Route path="/*" element={<ProtectedRoutes />} />
@@ -42,6 +45,7 @@ const ProtectedRoutes = () => {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/mfa" element={<MultiFactorAuthentication />} />
           {/* Add other routes here */}
         </Routes>
       </div>
