@@ -47,6 +47,7 @@ const SalesTrend = () => {
   };
 
   return (
+    // style={{backgroundColor: '#f5f5fc'}}
     <div>
         <h2> Sales Trend </h2>
         <ResponsiveContainer width="100%" height={400}>

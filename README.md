@@ -35,3 +35,4 @@ npm install react-chartjs-2 chart.js
 npm install recharts
 npm install socket.io-client
 npm install firebase
+npm install chartjs-plugin-datalabels

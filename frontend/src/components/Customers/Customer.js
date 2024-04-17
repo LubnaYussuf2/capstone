@@ -1,30 +1,32 @@
 import React, { useState, useEffect } from 'react';
+import { Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; 
 // import '../components/customer.css';
 import { DataGrid } from '@mui/x-data-grid';
 import Chip from '@mui/material/Chip';
 import Avatar from '@mui/material/Avatar';
+import { Padding } from '@mui/icons-material';
 
 const columns = [
     { 
         // field: 'profile', 
         headerName: 'Profile', 
-        width: 70, 
+        width: 75, 
         renderCell: (params) => (
             // <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getRandomColor() }}></Avatar>
-            <Avatar style={{ height: 30, width: 30, fontSize: '12.5px', backgroundColor: getAvatarColor(params.row.name), color: 'black' }}>
+            <Avatar style={{ height: 35, width: 35, fontSize: '12.5px', backgroundColor: getAvatarColor(params.row.name), color: 'black' }}>
                 {getInitials(params.row.name)}
             </Avatar>
         ) 
     },    
 
     // {field: 'id', headerName: 'ID', width: 50 },
-    { field: 'name', headerName: 'Name', width: 130 },
-    { field: 'age', headerName: 'Age', width: 45 },
-    { field: 'gender', headerName: 'Gender', width: 70 },
+    { field: 'name', headerName: 'Name', width: 140 },
+    { field: 'age', headerName: 'Age', width: 55 },
+    { field: 'gender', headerName: 'Gender', width: 80 },
     { field: 'origin', headerName: 'Origin', width: 80 },
-    { field: 'email', headerName: 'E-Mail', width: 150 },
-    { field: 'phoneno', headerName: 'Phone Number', width: 120 },
+    { field: 'email', headerName: 'E-Mail', width: 190 },
+    { field: 'phoneno', headerName: 'Phone Number', width: 130 },
     { field: 'visits', headerName: 'Status', width: 90, 
         renderCell: (params) => (
             <Chip
@@ -120,8 +122,9 @@ const Customer = () => {
     return (
         <>
          {customerData ? (
-        <div style={{ height: 680, width: '97%', margin: 10, paddingBottom: 25 }}>
-          <h2>Customer List</h2>
+        <div style={{ height: 700, width: '97%', margin: 10, paddingBottom: 25 }}>
+          {/* <p style={{ fontSize: '24px', marginTop: '0px' }}>Customer List</p> */}
+          <Typography variant="h5" sx={{ pb: 2 , color: "#261c33" }} > Customer List</Typography>
           <DataGrid
             rows={customerData}
             columns={columns}

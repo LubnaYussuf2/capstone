@@ -5,7 +5,7 @@ import SalesOverTime from './SalesOverTime';
 import RadarChart from './RadarChart';
 // import SalesTrend from './SalesTrend';
 // import PackagePerformance from './PackagePerformance';
-
+import RadarChart2 from './RadarChart2';
 
 function Sales() {
   const userName = "ukoo";
@@ -34,9 +34,9 @@ function Sales() {
 
   return (
     <div style={{ marginLeft: '250px' }}>
-      <AppBar position="static" sx={{ backgroundColor: '#fff', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 0 , color: "black", fontWeight: "bold" }}>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
             Sales
           </Typography>
           <Stack direction="row" spacing={0} alignItems="center">
@@ -62,19 +62,21 @@ function Sales() {
 
       {/* <SalesTrend />
       <PackagePerformance /> */}
-      <RadarChart />
+      {/* <RadarChart /> */}
+      
+      {/* <RadarChart2 /> */}
 
       <Grid container spacing={2} sx={{ padding: '20px' }}>
         {/* Left side */}
         <Grid item container spacing={4} xs={7}>
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>Total Sales Last Year: {totalSalesLastYear}</Paper>
+            <Paper sx={{ height: '150px', p: 2 }}>Total Sales Last Year: {totalSalesLastYear}</Paper>
           </Grid>
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>Section 2</Paper>
+            <Paper sx={{ height: '150px', p: 2 }}>Section 2</Paper>
           </Grid>
           <Grid item xs={4}>
-            <Paper sx={{ height: '200px', p: 2 }}>Section 3</Paper>
+            <Paper sx={{ height: '150px', p: 2 }}>Section 3</Paper>
           </Grid>
           <Grid item xs={12}>
             <Paper sx={{ height: '500px', pl: 2, pb: 8 }}><SalesOverTime /></Paper>
@@ -84,10 +86,10 @@ function Sales() {
         {/* Right side */}
         <Grid item container  spacing={1} xs={5} >
           <Grid item xs={12}>
-            <Paper sx={{ height: '200px', p: 2 }}>Section 5</Paper>
+            <Paper sx={{ height: '150px', p: 2 }}>Section 5</Paper>
           </Grid>
           <Grid item xs={12}>
-            <Paper sx={{ height: '510px', p: 2, pb:5}}><RadarChart /></Paper>
+            <Paper sx={{ height: '510px', p: 2, pb:5}}><RadarChart2 /></Paper>
           </Grid>
         </Grid>
       </Grid>
