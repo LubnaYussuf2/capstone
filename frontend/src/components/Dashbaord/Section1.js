@@ -75,29 +75,32 @@ function Section1() {
     }, []);
 
     return (
-        <div style={{}}>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <h3 style={{ marginRight: '10px' }}>Monthly Target</h3>
-                <p style={{color:"red"}}>200,000.00 QAR</p>
-            </div>
-
-            <div style={{ textAlign: 'center' }}>
-                <h2>113,400.00 QAR</h2>
-            </div>
-
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Stack spacing={2} sx={{ flexGrow: 1 }}>
-                    <BorderLinearProgress variant="determinate" value={(113400 / 200000) * 100} />
-                </Stack>
-                {/* <p style={{ marginRight: '10px', marginBottom: "15px" }}> </p> */}
-                <img src={process.env.PUBLIC_URL + '/target.png'} alt="Logo" style={{ width: '10%', marginLeft: '10px', marginBottom: "15px" }} />
-                {/* <LinearProgress variant="determinate" value={(120000 / 200000) * 100} /> */}
-                {/* <BorderLinearProgress variant="determinate" value={120000 / 200000} /> */}
-
-            </div>
-
+    <div>  
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <p style={{ marginTop: 0 }}>MONTHLY TARGET</p>  
+            <p style={{marginTop: 0 , marginLeft:120, color:"#5D5FEF"}}>200k</p>
+           
         </div>
+    
+        <div style={{ display: 'flex',  justifyContent: '', paddingBottom: '20px' }}> 
+            <p style={{ fontSize: '24px', marginBottom: '5px', marginTop: 10  }}>113,400 QAR</p>     
+        </div>
+    
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 5, paddingRight: 50 }}>
+            <div style={{ flexGrow: 1 }}> 
+                <BorderLinearProgress 
+                    variant="determinate" 
+                    value={(113400 / 200000) * 100} 
+                    sx={{
+                        '& .MuiLinearProgress-bar': {
+                            backgroundColor: '#5D5FEF', // Change the color here
+                        },
+                    }}
+                />
+            </div>
+        </div>
+    </div>
+    
     );
 }
 

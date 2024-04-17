@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
+import { Typography } from '@mui/material';
 
 const CustomerCounts = () => {
   const [customerData, setCustomerData] = useState([]);
@@ -59,7 +60,8 @@ const CustomerCounts = () => {
 
   return (
     <div>
-      <h2>Customer Counts</h2>
+      <h2 style={{marginTop:0}}>Customer Counts</h2>
+      {/* <Typography variant="h5" sx={{ pb: 2 , color: "#261c33" }} > Customer Counts </Typography> */}
       <div style={{ height: '400px', width: '620px', paddingLeft:10 }}>
         <Bar
           data={chartData}

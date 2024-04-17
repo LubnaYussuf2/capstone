@@ -56,14 +56,48 @@ function Home() {
       {/* Top section */}
       <Grid container spacing={2} sx={{ padding: '20px', paddingBottom: "5px" }}>
         <Grid item xs={3}>
-          <Paper sx={{ height: '150px', p: 2 }}><Section1 /></Paper>
+        <Paper sx={{ height: '120px', p: 2, display: 'flex', position: 'relative' }}>
+
+          <div style={{ flexGrow: 1, display: 'flex' }}>
+            <Section1 />
+          </div>
+
+          <img
+            src={process.env.PUBLIC_URL + '/mt.png'}
+            alt="Target icon"
+            style={{
+              maxHeight: '50px',
+              position: 'absolute',
+              bottom: '5px',
+              right: '5px',
+            }}
+          />
+        </Paper>
+
         </Grid>
         <Grid item xs={3}>
-          <Paper sx={{ height: '150px', p: 2 }}><Section2 /></Paper>
+          {/* <Paper sx={{ height: '150px', p: 2 }}><Section2 /></Paper> */}
+          <Paper sx={{ height: '120px', p: 2, display: 'flex', position: 'relative' }}>
+
+          <div style={{ flexGrow: 1, display: 'flex' }}>
+            <Section2 />
+          </div>
+          {/* <p style={{ marginTop: '5px', color: "#5D5FEF" }}>See Details</p> */}
+          <img
+            src={process.env.PUBLIC_URL + '/customers.png'}
+            alt="Target icon"
+            style={{
+              maxHeight: '50px',
+              position: 'absolute',
+              bottom: '5px',
+              right: '5px',
+            }}
+          />
+        </Paper>
         </Grid>
         <Grid item xs={3}>
         <Paper sx={{ height: '120px', p: 2, display: 'flex', flexDirection: 'column', position: 'relative' }}>
-          Overall satisfaction
+          OVERALL SATISFACTION
           <div style={{ flexGrow: 1, display: 'flex', }}>
             <CusSatisfactionHalfDonut />
           </div>
@@ -82,7 +116,25 @@ function Home() {
 
         </Grid>
         <Grid item xs={3}>
-          <Paper sx={{ height: '150px', p: 2 }}><Section4 /></Paper>
+          {/* <Paper sx={{ height: '150px', p: 2 }}><Section4 /></Paper> */}
+
+          <Paper sx={{ height: '120px', p: 2, display: 'flex', position: 'relative' }}>
+
+            <div style={{ flexGrow: 1, display: 'flex' }}>
+              <Section4 />
+            </div>
+            {/* <p style={{ marginTop: '5px', color: "#5D5FEF" }}>See Details</p> */}
+            <img
+              src={process.env.PUBLIC_URL + '/tasks.png'}
+              alt="Target icon"
+              style={{
+                maxHeight: '45px',
+                position: 'absolute',
+                bottom: '5px',
+                right: '5px',
+              }}
+            />
+          </Paper>
         </Grid>
       </Grid>
 

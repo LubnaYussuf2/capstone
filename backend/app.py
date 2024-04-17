@@ -67,15 +67,15 @@ escaped_password = urllib.parse.quote_plus(password)
 # mongodb+srv://cappy:cappy@2001@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 
 # Configure Flask app for MongoDB
-# app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
-app.config["MONGO_URI"] = "mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+app.config["MONGO_URI"] = "mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0"
+# app.config["MONGO_URI"] = "mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 # print(mongo.db)
 mongo_db = mongo.db  # This is the MongoDB database instance
 
 # Connect to MongoDB
-# client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
-client = MongoClient('mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
+client = MongoClient('mongodb+srv://capstonegirls2024:capstoneWinter2024@cluster0.xgvhmkg.mongodb.net/capstone?retryWrites=true&w=majority&appName=Cluster0')
+# client = MongoClient('mongodb+srv://{escaped_username}:{escaped_password}@cluster0.fahmtdx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0')
 db = client['capstone']
 capstone = db['capstone']
 reviews = db['reviews']

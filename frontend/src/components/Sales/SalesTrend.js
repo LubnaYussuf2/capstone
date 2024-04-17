@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Typography } from '@mui/material';
 
 const SalesTrend = () => {
   const [data, setData] = useState([]);
@@ -49,7 +50,8 @@ const SalesTrend = () => {
   return (
     // style={{backgroundColor: '#f5f5fc'}}
     <div>
-        <h2> Sales Trend </h2>
+        <h2 style={{marginTop:0}}> Sales Trend </h2>
+        {/* <Typography variant="h5" sx={{ pb: 2 , color: "#261c33" }} >  Sales Trend </Typography> */}
         <ResponsiveContainer width="100%" height={400}>
         <LineChart
             width={500}
@@ -65,7 +67,8 @@ const SalesTrend = () => {
             <Tooltip cursor={false}/>
             <Legend verticalAlign="top" height={36}/>
             {Object.keys(data[0] || {}).filter(key => key !== 'month').map((year, index) => (
-            <Line type="monotone" dataKey={year} stroke={index === 0 ? "#8884d8" : "#82ca9d"} key={year} />
+            <Line type="monotone" dataKey={year} stroke={index === 0 ? "#8884d8" : "#82ca9d"} strokeWidth={2} key={year} />
+
             ))}
         </LineChart>
     </ResponsiveContainer>
