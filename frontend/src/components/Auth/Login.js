@@ -6,6 +6,8 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [verificationCode, setVerificationCode] = useState('');
+  const [showVerification, setShowVerification] = useState(false); // Initially set to false
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleSubmit = async (event) => {
@@ -13,8 +15,10 @@ const Login = () => {
 
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Redirect to homepage or handle login success in any way you prefer
+     // setShowVerification(true); // Show verification form after successful login REMOVE IT IN BEGINNING
+     if (!showVerification) {
       window.location.href = '/';
+    }
     } catch (error) {
       console.error('Error during login:', error);
       setErrorMessage('Invalid email or password');

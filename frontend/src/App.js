@@ -9,6 +9,7 @@ import Campaigns from './components/Campaigns/Campaigns';
 import Profile from './components/Profile';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import Logout from './components/Auth/logout';
 import Tasks from './components/Tasks/tasks'; 
 import CustomerProfile from './components/Customers/CustomerProfile';
 
@@ -22,7 +23,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-          {/* <Route path="/logout" element={<Logout />} /> */}
+        
+          <Route path="/logout" element={<Logout />} />
 
         <Route path="/*" element={<ProtectedRoutes />} />
       </Routes>

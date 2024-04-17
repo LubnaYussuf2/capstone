@@ -14,12 +14,38 @@ const Register = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      // Redirect to homepage or handle registration success in any way you prefer
-      window.location.href = '/login';
+     // await set(); // Save additional user data to Firestore
+      window.location.href = '/'; // Redirect on successful registration
     } catch (error) {
       console.error('Error during registration:', error);
       setErrorMessage('Failed to register. Please try again.');
     }
+  };
+
+  // const collectionRef = collection(db, 'mfa')
+  // const set = async () => {
+  //   const userDocRef = setDoc(db, 'mfa', "users");
+  //   await setDoc(userDocRef, { name, email });
+  //   console.log('User data submitted to Firestore');
+  
+  // };
+
+  const checkPasswordStrength = (password) => {
+    let strength = 0;
+    if (password.match(/[a-z]/) && password.match(/[A-Z]/)) {
+      strength++;
+    }
+    if (password.match(/[0-9]/)) {
+      strength++;
+    }
+    if (password.match(/[^a-zA-Z0-9]/)) {
+      strength++;
+    }
+    if (password.length >= 8) {
+      strength++;
+    }
+    const percentage = (strength / 4) * 100;
+    setPasswordStrength(percentage);
   };
 
   return (
