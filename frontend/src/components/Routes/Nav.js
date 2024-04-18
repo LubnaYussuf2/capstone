@@ -83,22 +83,7 @@ const Nav = () => {
             </ListItemIcon>
             <ListItemText primary="Bookings & Packages" sx={{ color: '#001a4d' }} />
           </ListItem>
-          <ListItem
-            button
-            component={Link}
-            to="/campaigns"
-            selected={location.pathname === '/campaigns'}
-            sx={{
-              '&.Mui-selected': {
-                backgroundColor: 'rgba(0, 0, 255, 0.1)', // Highlighted background color
-              },
-            }}
-          >
-            <ListItemIcon sx={{ color: '#001a4d' }}>
-              <CampaignIcon />
-            </ListItemIcon>
-            <ListItemText primary="Campaigns" sx={{ color: '#001a4d' }} />
-          </ListItem>
+
           <ListItem
             button
             component={Link}
@@ -115,6 +100,25 @@ const Nav = () => {
             </ListItemIcon>
             <ListItemText primary="Tasks" sx={{ color: '#001a4d' }} />
           </ListItem>
+
+          <ListItem
+            button
+            component={Link}
+            to="/campaigns"
+            selected={location.pathname === '/campaigns'}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(0, 0, 255, 0.1)', // Highlighted background color
+              },
+            }}
+          >
+            <ListItemIcon sx={{ color: '#001a4d' }}>
+              <CampaignIcon />
+            </ListItemIcon>
+            <ListItemText primary="Marketing" sx={{ color: '#001a4d' }} />
+          </ListItem>
+          
+          
 
           
           {/* Add more ListItems for other sections */}
