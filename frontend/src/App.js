@@ -7,6 +7,7 @@ import Sales from './components/Sales/Sales';
 import Packages from './components/booking & packages/Packages';
 import Campaigns from './components/Campaigns/Campaigns'; 
 import Profile from './components/Profile';
+import Settings from './components/Settings';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
 import SignOut from './components/Auth/logout';
@@ -50,6 +51,7 @@ const ProtectedRoutes = () => {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
           <Route path="/mfa" element={<MultiFactorAuthentication />} />
           {/* Add other routes here */}
         </Routes>

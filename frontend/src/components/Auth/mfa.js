@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { Box, Button, Container, Modal, Paper, TextField, Typography, CircularProgress } from '@mui/material';
+import { AppBar, Toolbar, IconButton, Avatar, Stack, Grid } from '@mui/material';
+import { Notifications as NotificationsIcon, Search as SearchIcon, FilterList as FilterListIcon } from '@mui/icons-material';
 
 function MultiFactorAuthentication() {
+  const userName = "ukoo";
+
   const [phoneNumber, setPhoneNumber] = useState('');
   const [verificationCode, setVerificationCode] = useState('');
   const [verificationId, setVerificationId] = useState(null);
@@ -58,7 +62,46 @@ function MultiFactorAuthentication() {
   };
 
   return (
-    <Container maxWidth="sm">
+    <div style={{ marginLeft: '250px', height:'100vh' }}>
+    {/* header */}
+      <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
+        <Toolbar>
+          <Typography variant="h4" component="div" sx={{ flexGrow: 1, ml: 0 , color: "#261c33", fontWeight: "bold" }}>
+            Multi Factor Authentication
+          </Typography>
+
+          <Stack direction="row" spacing={0} alignItems="center">
+            <TextField
+              placeholder="Search..."
+              size="medium"
+              variant="standard"
+              sx={{ borderBottom: '1px solid', borderRadius: 0, minWidth: '30ch' }}
+            />
+            <IconButton color="disabled" aria-label="filter" sx={{ mr: 5 }}>
+              <FilterListIcon />
+            </IconButton>
+          </Stack>
+
+
+          <IconButton color="disabled" aria-label="notifications">
+            <NotificationsIcon />
+          </IconButton>
+
+          <Typography variant="body1" sx={{ mr: 2, color: 'black' }}>
+              Welcome, {userName}
+          </Typography>
+          <Avatar alt="User Avatar" src="/path/to/avatar.jpg" />
+         
+        </Toolbar>
+      </AppBar>
+
+
+  
+
+
+      
+    
+    <Container maxWidth="sm" style={{justifyContent:"center", alignContent:"center"}}>
       <Paper sx={{ padding: 3, marginTop: 4 }}>
         <Typography variant="h4" gutterBottom>
           Multi-Factor Authentication
@@ -104,6 +147,8 @@ function MultiFactorAuthentication() {
         </Box>
       </Modal>
     </Container>
+
+    </div>
   );
 }
 
