@@ -149,8 +149,10 @@ const Nav = () => {
           <ListItem
             button
             component={Link}
-            to="/settings"
-            selected={location.pathname === '/settings'}
+            // to="/settings"
+            to="/mfa"
+            // selected={location.pathname === '/settings'}
+            selected={location.pathname === '/mfa'}
             sx={{
               '&.Mui-selected': {
                 backgroundColor: 'rgba(0, 0, 255, 0.1)', // Highlighted background color
@@ -179,13 +181,38 @@ const Nav = () => {
             </ListItemIcon>
             <ListItemText primary="Help" sx={{ color: '#001a4d' }} />
           </ListItem>
-          
+          {/* <ListItem
+            button
+            component={Link}
+            to="/mfa"
+            selected={location.pathname === '/mfa'}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(0, 0, 255, 0.1)', // Highlighted background color
+              },
+            }}
+          >
+            <ListItemIcon sx={{ color: '#001a4d' }}>
+              <SettingsIcon />*/} {/* Use the Settings icon here or any other suitable icon */}
+            {/*</ListItemIcon>
+            <ListItemText primary="Enable MFA" sx={{ color: '#001a4d' }} />
+          </ListItem> */}
 
           {/* Logout placeholder */}
           <div style={{ marginTop: '70%', color: '#808080', fontSize: '12px' }}>
             
           </div>
-          <ListItem button>
+          <ListItem
+            button
+            component={Link}
+            to="/logout"
+            selected={location.pathname === '/logout'}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(0, 0, 255, 0.1)', // Highlighted background color
+              },
+            }}
+          >
             <ListItemIcon sx={{ color: '#001a4d' }}>
               <ExitToAppIcon />
             </ListItemIcon>

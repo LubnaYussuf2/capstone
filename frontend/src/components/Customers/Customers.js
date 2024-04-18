@@ -37,7 +37,7 @@ function Customers() {
     }, []);
 
   return (
-    <div style={{ marginLeft: '250px', backgroundColor: "#f5f5fc", flex: 0, height: '100%'}}> 
+    <div style={{ marginLeft: '250px', backgroundColor: "#f5f5fc", flex: 0, height: '100vh'}}> 
     {/* #faf6fa */}
     <AppBar position="static" sx={{ backgroundColor: '#f5f5fc', borderBottom: '1px solid #ccc', boxShadow: 'none' }}>
         <Toolbar>

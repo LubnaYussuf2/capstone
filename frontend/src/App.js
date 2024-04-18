@@ -7,10 +7,15 @@ import Sales from './components/Sales/Sales';
 import Packages from './components/booking & packages/Packages';
 import Campaigns from './components/Campaigns/Campaigns'; 
 import Profile from './components/Profile';
+import Settings from './components/Settings';
 import Register from './components/Auth/Register';
 import Login from './components/Auth/Login';
+import SignOut from './components/Auth/logout';
 import Tasks from './components/Tasks/tasks'; 
 import CustomerProfile from './components/Customers/CustomerProfile';
+import MultiFactorAuthentication from './components/Auth/mfa'; // Import the MFA component
+import { Logout } from '@mui/icons-material';
+
 
 
 
@@ -22,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/logout" element={<SignOut />} />
           {/* <Route path="/logout" element={<Logout />} /> */}
 
         <Route path="/*" element={<ProtectedRoutes />} />
@@ -45,6 +51,8 @@ const ProtectedRoutes = () => {
           <Route path="/campaigns" element={<Campaigns />} />
           <Route path="/tasks" element={<Tasks />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/mfa" element={<MultiFactorAuthentication />} />
           {/* Add other routes here */}
         </Routes>
       </div>
