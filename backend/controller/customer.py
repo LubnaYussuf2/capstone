@@ -52,7 +52,8 @@ def get_one_customer(customer_id):
             "income": customer.get("Income_USD"),
             "hobby": customer.get("Hobby"),
             "review": customer.get("review"),
-            "packages": customer.get("packages")      
+            "packages": customer.get("packages"),  
+            "cluster": customer.get("cluster")    
         }
 
         print("from controller")
